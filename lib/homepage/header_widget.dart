@@ -10,8 +10,8 @@ class HeaderWidget extends StatelessWidget {
     return Container(
       height: size.height * 0.3,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: theme.colorScheme.secondary),
+          borderRadius: BorderRadius.circular(12),
+          color: theme.colorScheme.secondary),
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
