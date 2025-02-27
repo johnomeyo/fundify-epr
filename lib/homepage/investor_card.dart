@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class InvestorCard extends StatelessWidget {
   final String name;
@@ -21,15 +22,30 @@ class InvestorCard extends StatelessWidget {
       height: size.height * 0.4,
       width: 350,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(imageUrl),
-          fit: BoxFit.cover,
-        ),
         borderRadius: BorderRadius.circular(20),
         color: Colors.grey.shade100,
       ),
       child: Stack(
         children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.cover,
+              height: size.height * 0.4,
+              width: 350,
+              placeholder: (context, url) => const Center(
+                  child: AnimatedSwitcher(
+                duration: Duration(seconds: 1),
+                child: Icon(Icons.image, size: 50, color: Colors.grey),
+              )),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.broken_image,
+                color: Colors.red,
+                size: 50,
+              ),
+            ),
+          ),
           Positioned(
             bottom: 20,
             left: 20,
