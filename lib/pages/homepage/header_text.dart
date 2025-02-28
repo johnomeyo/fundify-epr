@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fundora/pages/investors/all_investors_page.dart';
 
 class HeaderText extends StatelessWidget {
   const HeaderText({super.key});
@@ -16,7 +17,10 @@ class HeaderText extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (contexxt) => AllInvestorsPage()));
+          },
           child: const Text("See All"),
         ),
       ],
