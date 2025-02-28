@@ -1,21 +1,59 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class ContactInformation extends StatelessWidget {
-  const ContactInformation({super.key});
+  final bool isPremiumUser; // Add a boolean to check if the user is premium
+
+  const ContactInformation({super.key, required this.isPremiumUser});
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
+      children: [
+        // Email ListTile
         ListTile(
-          leading: Icon(Icons.email),
-          title: Text("johndoe@example.com"),
+          leading: const Icon(Icons.email),
+          title: Stack(
+            children: [
+              const Text("johndoe@example.com"),
+              if (!isPremiumUser) // Apply blur if the user is not premium
+                Positioned.fill(
+                  child: ClipRect(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 5, sigmaY: 5), // Adjust blur intensity
+                      child: Container(
+                        color: Colors.transparent, // Transparent background
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
+        // Website ListTile
         ListTile(
-          leading: Icon(Icons.link),
-          title: Text("www.johndoeinvestments.com"),
+          leading: const Icon(Icons.link),
+          title: Stack(
+            children: [
+              const Text("www.johndoeinvestments.com"),
+              if (!isPremiumUser) // Apply blur if the user is not premium
+                Positioned.fill(
+                  child: ClipRect(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 5, sigmaY: 5), // Adjust blur intensity
+                      child: Container(
+                        color: Colors.transparent, // Transparent background
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
-        ListTile(
+        // Location ListTile (no blur)
+        const ListTile(
           leading: Icon(Icons.location_on),
           title: Text("San Francisco, CA"),
         ),

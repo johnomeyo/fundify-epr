@@ -10,11 +10,15 @@ class HeaderText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "Popular with other startups",
-          style: theme.textTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.bold),
+          "Popular Investors",
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        TextButton(onPressed: () {}, child: Text("See All")),
+        TextButton(
+          onPressed: () {},
+          child: const Text("See All"),
+        ),
       ],
     );
   }

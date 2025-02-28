@@ -29,7 +29,9 @@ class InvestorDetailsPage extends StatelessWidget {
             SectionTitle(title: "Investment Focus"),
             InvestmentFocusChips(),
             SectionTitle(title: "Contact Information"),
-            ContactInformation(),
+            ContactInformation(
+              isPremiumUser: false,
+            ),
             ActionButtons(),
           ],
         ),
