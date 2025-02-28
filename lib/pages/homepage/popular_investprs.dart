@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fundora/homepage/investor_card.dart';
+import 'package:fundora/pages/homepage/investor_card.dart';
 
 class PopularInvestors extends StatelessWidget {
   final List<Map<String, String>> investors;

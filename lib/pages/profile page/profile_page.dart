@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fundora/profile%20page/profile_page_header.dart';
-import 'package:fundora/profile%20page/profile_picture.dart';
-import 'package:fundora/profile%20page/utilities_section.dart';
-import 'package:fundora/profile%20page/widget_helpers.dart';
+import 'package:fundora/pages/profile%20page/profile_page_header.dart';
+import 'package:fundora/pages/profile%20page/profile_picture.dart';
+import 'package:fundora/pages/profile%20page/utilities_section.dart';
+import 'package:fundora/pages/profile%20page/widget_helpers.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

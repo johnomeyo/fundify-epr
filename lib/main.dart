@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fundora/chat/chat_page.dart';
-import 'package:fundora/homepage/home_page.dart';
-import 'package:fundora/profile%20page/profile_page.dart';
+import 'package:fundora/pages/chat/messages_page.dart';
+import 'package:fundora/pages/homepage/home_page.dart';
+import 'package:fundora/pages/profile%20page/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +36,7 @@ class HomeScreenState extends State {
 
   final List<Widget> _pages = [
     EntrepreneurHomePage(),
-    ChatPage(),
+    MessagesPage(),
     ProfilePage(),
   ];
 

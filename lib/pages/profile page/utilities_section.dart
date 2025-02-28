@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fundora/profile%20page/faq_page.dart';
-import 'package:fundora/profile%20page/terms_of_service_page.dart';
-import 'package:fundora/profile%20page/utilities_tile.dart';
+import 'package:fundora/pages/profile%20page/faq_page.dart';
+import 'package:fundora/pages/profile%20page/terms_of_service_page.dart';
+import 'package:fundora/pages/profile%20page/utilities_tile.dart';
 
 class UtilitiesSection extends StatelessWidget {
   const UtilitiesSection({super.key});

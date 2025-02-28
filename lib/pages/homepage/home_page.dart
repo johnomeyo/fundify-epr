@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fundora/data.dart';
-import 'package:fundora/homepage/header_text.dart';
-import 'package:fundora/homepage/header_widget.dart';
-import 'package:fundora/homepage/popular_investprs.dart';
+import 'package:fundora/pages/homepage/header_text.dart';
+import 'package:fundora/pages/homepage/header_widget.dart';
+import 'package:fundora/pages/homepage/popular_investprs.dart';
 
 class EntrepreneurHomePage extends StatelessWidget {
   const EntrepreneurHomePage({super.key});
