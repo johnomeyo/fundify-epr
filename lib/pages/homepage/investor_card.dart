@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fundora/pages/investors/investors_details_page.dart';
 
 class InvestorCard extends StatelessWidget {
   final String name;
@@ -18,78 +19,84 @@ class InvestorCard extends StatelessWidget {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
 
-    return Container(
-      height: size.height * 0.4,
-      width: 350,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.grey.shade100,
-      ),
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              fit: BoxFit.cover,
-              height: size.height * 0.4,
-              width: 350,
-              placeholder: (context, url) => const Center(
-                  child: AnimatedSwitcher(
-                duration: Duration(seconds: 1),
-                child: Icon(Icons.image, size: 50, color: Colors.grey),
-              )),
-              errorWidget: (context, url, error) => const Icon(
-                Icons.broken_image,
-                color: Colors.red,
-                size: 50,
+    return InkWell(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => InvestorDetailsPage()));
+      },
+      child: Container(
+        height: size.height * 0.4,
+        width: 350,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.grey.shade100,
+        ),
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                height: size.height * 0.4,
+                width: 350,
+                placeholder: (context, url) => const Center(
+                    child: AnimatedSwitcher(
+                  duration: Duration(seconds: 1),
+                  child: Icon(Icons.image, size: 50, color: Colors.grey),
+                )),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.broken_image,
+                  color: Colors.red,
+                  size: 50,
+                ),
               ),
             ),
-          ),
-          Positioned(
-            bottom: 20,
-            left: 20,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      name,
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: theme.colorScheme.primary,
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        name,
+                        style: theme.textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.primary,
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    const Icon(
-                      Icons.verified,
-                      color: Colors.blue,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_pin,
-                      size: 15,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      location,
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
+                      const SizedBox(width: 10),
+                      const Icon(
+                        Icons.verified,
+                        color: Colors.blue,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_pin,
+                        size: 15,
                         color: Colors.grey,
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      const SizedBox(width: 5),
+                      Text(
+                        location,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
