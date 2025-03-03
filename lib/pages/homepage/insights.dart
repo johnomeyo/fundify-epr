@@ -6,7 +6,7 @@ class EntrepreneurInsights extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -33,7 +33,7 @@ class EntrepreneurInsights extends StatelessWidget {
 
   Widget _buildInsightCards(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     // List of insight data
     final insights = [
       {
@@ -62,7 +62,7 @@ class EntrepreneurInsights extends StatelessWidget {
       itemCount: insights.length,
       itemBuilder: (context, index) {
         final insight = insights[index];
-        
+
         return Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
           child: InkWell(
@@ -71,7 +71,7 @@ class EntrepreneurInsights extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: theme.colorScheme.outline.withOpacity(0.2),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.2),
                 ),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -81,7 +81,7 @@ class EntrepreneurInsights extends StatelessWidget {
                     width: 80,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceVariant,
+                      color: theme.colorScheme.surfaceContainerHighest,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(12),
                         bottomLeft: Radius.circular(12),
@@ -130,13 +130,15 @@ class EntrepreneurInsights extends StatelessWidget {
                               Icon(
                                 Icons.access_time,
                                 size: 12,
-                                color: theme.colorScheme.onSurface.withOpacity(0.6),
+                                color: theme.colorScheme.onSurface
+                                    .withValues(alpha: 0.6),
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 insight['readTime'] as String,
                                 style: theme.textTheme.bodySmall?.copyWith(
-                                  color: theme.colorScheme.onSurface.withOpacity(0.6),
+                                  color: theme.colorScheme.onSurface
+                                      .withValues(alpha: 0.6),
                                 ),
                               ),
                             ],

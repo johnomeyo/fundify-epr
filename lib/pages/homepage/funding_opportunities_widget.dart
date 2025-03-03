@@ -52,7 +52,7 @@ class FundingOpportunities extends StatelessWidget {
       },
     ];
 
-    return Container(
+    return SizedBox(
       height: 155,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -70,13 +70,13 @@ class FundingOpportunities extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  color.withOpacity(0.7),
+                  color.withValues(alpha: 0.7),
                   color,
                 ],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: color.withOpacity(0.3),
+                  color: color.withValues(alpha: 0.3),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
@@ -90,7 +90,7 @@ class FundingOpportunities extends StatelessWidget {
                   right: -20,
                   child: CircleAvatar(
                     radius: 40,
-                    backgroundColor: Colors.white.withOpacity(0.1),
+                    backgroundColor: Colors.white.withValues(alpha: 0.1),
                   ),
                 ),
                 Positioned(
@@ -98,7 +98,7 @@ class FundingOpportunities extends StatelessWidget {
                   left: -15,
                   child: CircleAvatar(
                     radius: 30,
-                    backgroundColor: Colors.white.withOpacity(0.1),
+                    backgroundColor: Colors.white.withValues(alpha: 0.1),
                   ),
                 ),
                 
@@ -144,7 +144,7 @@ class FundingOpportunities extends StatelessWidget {
                                 Text(
                                   opportunity['range'] as String,
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -166,7 +166,7 @@ class FundingOpportunities extends StatelessWidget {
                               vertical: 4,
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
+                              color: Colors.white.withValues(alpha: 0.2),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
@@ -187,13 +187,13 @@ class FundingOpportunities extends StatelessWidget {
                           Icon(
                             Icons.access_time,
                             size: 14,
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                           ),
                           const SizedBox(width: 4),
                           Text(
                             'Deadline: ${opportunity['deadline']}',
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withValues(alpha: 0.9),
                             ),
                           ),
                           const Spacer(),
