@@ -17,19 +17,17 @@ class SignInPage extends StatelessWidget {
             children: [
               // App Logo / Branding
               CircleAvatar(
-                backgroundColor: Colors.green,
-                radius: 50,
-                child: Icon(
-                  Icons.business_center,
-                  color: Colors.white,
-                  size: 40,
-                ),
+                radius: 80,
+                backgroundColor:
+                    Colors.grey.shade200, // Optional background color
+                foregroundImage:
+                    AssetImage("assets/logo2.jpeg"), // Uses image directly
               ),
               const SizedBox(height: 24),
 
               // Headline
               const Text(
-                "Welcome to Fundify",
+                "Welcome to Flow",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
@@ -55,10 +53,6 @@ class SignInPage extends StatelessWidget {
                 child: FilledButton(
                   onPressed: () {
                     // //Add Google Sign-In Logic
-                    // Navigator.of(context).pushAndRemoveUntil(
-                    //     MaterialPageRoute(
-                    //         builder: (ctx) => InvestorDetailsForm()),
-                    //     (route) => false);
 
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (ctx) => ProfileSetupPage()),
