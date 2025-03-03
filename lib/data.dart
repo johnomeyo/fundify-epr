@@ -1,4 +1,4 @@
-import 'package:fundora/message_model.dart';
+import 'package:fundora/models/message_model.dart';
 
 final investors = [
   {

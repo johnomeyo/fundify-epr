@@ -18,7 +18,7 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 16, 
+          spacing: 16,
           children: [
             ProfilePicture(
               name: "Green Power Solutions",
