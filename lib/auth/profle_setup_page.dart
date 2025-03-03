@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fundora/main.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileSetupPage extends StatefulWidget {
@@ -125,7 +126,9 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
         const SnackBar(content: Text('Profile setup completed successfully!')),
       );
       // Navigate to the next screen
-      // Navigator.of(context).pushReplacement(...);
+
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (ctx) => HomeScreen()), (route) => false);
     }
   }
 
