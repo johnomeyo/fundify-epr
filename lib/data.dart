@@ -23,6 +23,28 @@ final investors = [
     "location": "San Francisco",
     "imageUrl": "https://i.redd.it/bcyq3rjk2w071.png",
   },
+    {
+    "name": "David Chapelle",
+    "location": "London",
+    "imageUrl":
+        "https://unchainedcrypto.com/wp-content/uploads/2023/07/pfp-nft.png",
+  },
+  {
+    "name": "Sophia Martinez",
+    "location": "New York",
+    "imageUrl":
+        "https://nftevening.com/wp-content/uploads/2022/04/BAYC-PFP-NFT.png",
+  },
+  {
+    'name': 'Jane Doe',
+    'location': 'New York',
+    'imageUrl': 'https://cdn.wallpapersafari.com/81/41/mDOY7h.jpg',
+  },
+  {
+    "name": "John Smith",
+    "location": "San Francisco",
+    "imageUrl": "https://i.redd.it/bcyq3rjk2w071.png",
+  },
 ];
 
 /// Mock data for messages with whom messages have been exchanged

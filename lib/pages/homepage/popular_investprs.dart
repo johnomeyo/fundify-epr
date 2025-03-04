@@ -15,7 +15,7 @@ class PopularInvestors extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.4,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: investors.length,
+        itemCount: 5,
         itemBuilder: (context, index) {
           final investor = investors[index];
           return Padding(
