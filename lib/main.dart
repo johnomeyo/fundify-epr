@@ -3,8 +3,14 @@ import 'package:fundora/auth/sign_in_page.dart';
 import 'package:fundora/pages/chat/messages_page.dart';
 import 'package:fundora/pages/homepage/home_page.dart';
 import 'package:fundora/pages/profile%20page/profile_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async{
+    WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

@@ -1,0 +1,2 @@
+C:/Flutter Projects/fundora/android/app/.cxx/RelWithDebInfo/3m21175y/x86/CMakeFiles/edit_cache.dir
+C:/Flutter Projects/fundora/android/app/.cxx/RelWithDebInfo/3m21175y/x86/CMakeFiles/rebuild_cache.dir

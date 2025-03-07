@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "258513065933",
+    "project_id": "flow-ad280",
+    "storage_bucket": "flow-ad280.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258513065933:android:91e0f21a8f15d2cfbb5684",
+        "android_client_info": {
+          "package_name": "com.example.fundify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLceRxjmKjVNoE8tKzPlPd7yK104BOTXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258513065933:android:7672f2b157e41bfcbb5684",
+        "android_client_info": {
+          "package_name": "com.example.fundora"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLceRxjmKjVNoE8tKzPlPd7yK104BOTXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
