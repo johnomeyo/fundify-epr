@@ -16,24 +16,27 @@ class InvestorDetailsPage extends StatelessWidget {
       appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          spacing: 15,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InvestorImage(),
-            InvestorInfo(bio: bio),
-            SectionTitle(title: "About"),
-            SectionContent(
-              content: bio,
-            ),
-            SectionTitle(title: "Investment Focus"),
-            InvestmentFocusChips(),
-            SectionTitle(title: "Contact Information"),
-            ContactInformation(
-              isPremiumUser: false,
-            ),
-            ActionButtons(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: 15,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InvestorImage(),
+              InvestorInfo(bio: bio),
+              SectionTitle(title: "Contact Information"),
+              ContactInformation(
+                isPremiumUser: false,
+              ),
+              SectionTitle(title: "About"),
+              SectionContent(
+                content: bio,
+              ),
+              SectionTitle(title: "Investment Focus"),
+              InvestmentFocusChips(),
+              
+              ActionButtons(),
+            ],
+          ),
         ),
       ),
     );

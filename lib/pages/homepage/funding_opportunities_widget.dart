@@ -10,20 +10,27 @@ class FundingOpportunities extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Funding Opportunities",
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  "Funding Opportunities",
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text("Explore All"),
-            ),
-          ],
+              TextButton(
+                onPressed: () {},
+                child: const Text("Explore All"),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 16),
         _buildOpportunityCards(context),
@@ -33,6 +40,10 @@ class FundingOpportunities extends StatelessWidget {
 
   Widget _buildOpportunityCards(BuildContext context) {
     final theme = Theme.of(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    
+    // Make card width responsive
+    final cardWidth = screenWidth < 360 ? screenWidth * 0.85 : 280.0;
     
     // Example funding data
     final opportunities = [
@@ -53,17 +64,18 @@ class FundingOpportunities extends StatelessWidget {
     ];
 
     return SizedBox(
-      height: 155,
+      height: 180, // Slightly increased height to accommodate content on smaller screens
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: opportunities.length,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         itemBuilder: (context, index) {
           final opportunity = opportunities[index];
           final color = opportunity['color'] as Color;
           
           return Container(
-            width: 280,
-            margin: const EdgeInsets.only(right: 16),
+            width: cardWidth,
+            margin: EdgeInsets.only(right: index == opportunities.length - 1 ? 0 : 16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               gradient: LinearGradient(
@@ -147,6 +159,8 @@ class FundingOpportunities extends StatelessWidget {
                                     color: Colors.white.withValues(alpha: 0.9),
                                     fontWeight: FontWeight.w500,
                                   ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
@@ -154,32 +168,36 @@ class FundingOpportunities extends StatelessWidget {
                         ],
                       ),
                       
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       
                       // Tags row
-                      Wrap(
-                        spacing: 8,
-                        children: (opportunity['tags'] as List).map((tag) {
-                          return Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.2),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              tag,
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: Colors.white,
+                      SizedBox(
+                        height: 28,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: (opportunity['tags'] as List).map((tag) {
+                            return Container(
+                              margin: const EdgeInsets.only(right: 8),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
                               ),
-                            ),
-                          );
-                        }).toList(),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.2),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                tag as String,
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
                       
-                      const SizedBox(height: 16),
+                      const Spacer(),
                       
                       // Deadline
                       Row(
@@ -190,13 +208,16 @@ class FundingOpportunities extends StatelessWidget {
                             color: Colors.white.withValues(alpha: 0.9),
                           ),
                           const SizedBox(width: 4),
-                          Text(
-                            'Deadline: ${opportunity['deadline']}',
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: Colors.white.withValues(alpha: 0.9),
+                          Expanded(
+                            child: Text(
+                              'Deadline: ${opportunity['deadline']}',
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: Colors.white.withValues(alpha: 0.9),
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const Spacer(),
                           Icon(
                             Icons.arrow_forward,
                             size: 16,

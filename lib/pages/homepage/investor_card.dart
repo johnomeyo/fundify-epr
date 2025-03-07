@@ -62,7 +62,7 @@ class InvestorCard extends StatelessWidget {
                     children: [
                       Text(
                         name,
-                        style: theme.textTheme.headlineSmall?.copyWith(
+                        style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: theme.colorScheme.primary,
                         ),

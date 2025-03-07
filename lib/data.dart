@@ -122,7 +122,7 @@ final List<Message> messages = [
   Message(
     name: 'Alice Johnson',
     imageUrl: '',
-    message: 'I’ll send you the details.',
+    message: 'I’ll send you the details.I’ll send you the details.I’ll send you the details.I’ll send you the details.',
     userID: '1',
   ),
   Message(

@@ -5,10 +5,12 @@ class WelcomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
+    
     return Container(
-      height: size.height * 0.22,
+      constraints: const BoxConstraints(
+        minHeight: 150, // Minimum height to ensure content fits
+      ),
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
@@ -22,7 +24,7 @@ class WelcomeHeader extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.primary.withValues(alpha: 0.2),
+            color: theme.colorScheme.primary.withOpacity(0.2),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -35,7 +37,7 @@ class WelcomeHeader extends StatelessWidget {
             bottom: -20,
             child: CircleAvatar(
               radius: 80,
-              backgroundColor: Colors.white.withValues(alpha: 0.1),
+              backgroundColor: Colors.white.withOpacity(0.1),
             ),
           ),
           Positioned(
@@ -43,7 +45,7 @@ class WelcomeHeader extends StatelessWidget {
             top: -30,
             child: CircleAvatar(
               radius: 60,
-              backgroundColor: Colors.white.withValues(alpha: 0.1),
+              backgroundColor: Colors.white.withOpacity(0.1),
             ),
           ),
           Padding(
@@ -52,18 +54,26 @@ class WelcomeHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "Welcome to Flow",
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Welcome to Flow",
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  "Connect with investors and grow your startup",
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.9),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Connect with investors and grow your startup",
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: Colors.white.withOpacity(0.9),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
