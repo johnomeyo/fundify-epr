@@ -12,7 +12,20 @@
           "package_name": "com.example.fundify"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "258513065933-971vi13q65h7q26duata1lggsc1pdbq5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fundify",
+            "certificate_hash": "226339c2863bf88effaaa25c216270e800c59821"
+          }
+        },
+        {
+          "client_id": "258513065933-9q68glhfmpq42njqppsc7rnrvhannec0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDLceRxjmKjVNoE8tKzPlPd7yK104BOTXk"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258513065933-9q68glhfmpq42njqppsc7rnrvhannec0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "258513065933-fb8satmjkdftkg0l6g6qfjul8g19kf6s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fundify"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +56,20 @@
           "package_name": "com.example.fundora"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "258513065933-0bpm1penflqgfpm0tvn405sb18rao0ia.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fundora",
+            "certificate_hash": "226339c2863bf88effaaa25c216270e800c59821"
+          }
+        },
+        {
+          "client_id": "258513065933-9q68glhfmpq42njqppsc7rnrvhannec0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDLceRxjmKjVNoE8tKzPlPd7yK104BOTXk"
@@ -39,7 +77,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "258513065933-9q68glhfmpq42njqppsc7rnrvhannec0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "258513065933-fb8satmjkdftkg0l6g6qfjul8g19kf6s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fundify"
+              }
+            }
+          ]
         }
       }
     }

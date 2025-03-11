@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fundora/auth/sign_in_page.dart';
+import 'package:fundora/auth/auth_gate.dart';
 import 'package:fundora/pages/chat/messages_page.dart';
 import 'package:fundora/pages/homepage/home_page.dart';
 import 'package:fundora/pages/profile%20page/profile_page.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0674B4)),
         useMaterial3: true,
       ),
-      home: const SignInPage(),
+      home: const AuthGate(),
     );
   }
 }

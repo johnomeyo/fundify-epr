@@ -63,6 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '258513065933',
     projectId: 'flow-ad280',
     storageBucket: 'flow-ad280.firebasestorage.app',
+    androidClientId: '258513065933-0bpm1penflqgfpm0tvn405sb18rao0ia.apps.googleusercontent.com',
+    iosClientId: '258513065933-qq98t6cbo7o02hkvf2ua0hej5ico148a.apps.googleusercontent.com',
     iosBundleId: 'com.example.fundora',
   );
+
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fundora/auth/profle_setup_page.dart';
+import 'package:fundora/services/auth_services.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -51,12 +51,12 @@ class SignInPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // //Add Google Sign-In Logic
-
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (ctx) => ProfileSetupPage()),
-                        (route) => false);
+                    await AuthServices().signInWithGoogle();
+                    // Navigator.of(context).pushAndRemoveUntil(
+                    //     MaterialPageRoute(builder: (ctx) => ProfileSetupPage()),
+                    //     (route) => false);
                   },
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),
