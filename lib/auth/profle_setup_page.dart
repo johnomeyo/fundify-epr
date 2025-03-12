@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fundora/main.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfileSetupPage extends StatefulWidget {
   const ProfileSetupPage({super.key});
@@ -119,16 +122,69 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
     }
   }
 
-  void _submitForm() {
-    if (_allFieldsValid) {
-      // Here you would typically save the data and navigate
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profile setup completed successfully!')),
-      );
-      // Navigate to the next screen
+  void _submitForm() async {
+    if (!_allFieldsValid) return;
 
+    // Show loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+      // Get current user ID
+      String userId = FirebaseAuth.instance.currentUser!.uid;
+
+      // Prepare data to be saved
+      Map<String, dynamic> profileData = {
+        "companyName": _companyNameController.text,
+        "industry": _selectedIndustry,
+        "description": _descriptionController.text,
+        "fundingGoal": double.parse(_fundingGoalController.text),
+        "currentFunding": double.parse(_currentFundingController.text),
+        "monthlyRevenue": double.parse(_monthlyRevenueController.text),
+        "problem": _problemController.text,
+        "solution": _solutionController.text,
+        "ownerID": userId,
+        "logo":
+            "https://images.unsplash.com/photo-1496200186974-4293800e2c20?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "timestamp": FieldValue.serverTimestamp(), // Firestore timestamp
+      };
+
+      // Save profile data to Firestore
+      await FirebaseFirestore.instance
+          .collection('startups')
+          .doc(userId)
+          .set(profileData, SetOptions(merge: true));
+
+      // Close loading dialog
+      Navigator.pop(context);
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Profile setup completed successfully!"),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      // Navigate to HomeScreen
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (ctx) => HomeScreen()), (route) => false);
+        MaterialPageRoute(builder: (ctx) => HomeScreen()),
+        (route) => false,
+      );
+    } catch (error) {
+      // Close loading dialog
+      Navigator.pop(context);
+
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error: ${error.toString()}"),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
