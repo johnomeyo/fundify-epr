@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class InvestorImage extends StatelessWidget {
-  const InvestorImage({super.key});
+  const InvestorImage({super.key, required this.imageUrl});
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class InvestorImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: CachedNetworkImage(
           imageUrl:
-              'https://cdn.prod.website-files.com/65217fd9e31608b8b68141ba/65217fd9e31608b8b6814492_-9ojwcB1tqVmdclia_Sx-oevPA3tjR3E4Y4Qtywk7fp90800zZijuZNz7dsIGPdmsNlpnfq3l1ayZSh1qWraCQqpIuIcNpEuRBg9tW96irdFURf6DDqWgjZ2EKAbqng6wgyhmrxb5fPt20yMRrWwpcg.png',
+             imageUrl,
           fit: BoxFit.cover,
           placeholder: (context, url) =>
               Center(child: CircularProgressIndicator()),

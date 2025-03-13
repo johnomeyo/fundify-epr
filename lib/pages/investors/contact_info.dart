@@ -3,8 +3,12 @@ import 'dart:ui';
 
 class ContactInformation extends StatelessWidget {
   final bool isPremiumUser; // Add a boolean to check if the user is premium
-
-  const ContactInformation({super.key, required this.isPremiumUser});
+  final String location;
+  const ContactInformation(
+      {super.key,
+      required this.isPremiumUser,
+      required String contact,
+      required this.location});
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +57,9 @@ class ContactInformation extends StatelessWidget {
           ),
         ),
         // Location ListTile (no blur)
-        const ListTile(
+        ListTile(
           leading: Icon(Icons.location_on),
-          title: Text("San Francisco, CA"),
+          title: Text(location),
         ),
       ],
     );

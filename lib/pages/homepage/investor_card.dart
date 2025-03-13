@@ -6,12 +6,18 @@ class InvestorCard extends StatelessWidget {
   final String name;
   final String location;
   final String imageUrl;
+  final String bio;
+  final List<String> investmentFocus;
+  final String contact;
 
   const InvestorCard({
     super.key,
     required this.name,
     required this.location,
     required this.imageUrl,
+    required this.bio,
+    required this.investmentFocus,
+    required this.contact,
   });
 
   @override
@@ -21,8 +27,19 @@ class InvestorCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => InvestorDetailsPage()));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => InvestorDetailsPage(
+              name: name,
+              location: location,
+              imageUrl: imageUrl,
+              bio: bio,
+              investmentFocus: investmentFocus,
+              contact: contact,
+            ),
+          ),
+        );
       },
       child: Container(
         height: size.height * 0.4,
@@ -41,10 +58,11 @@ class InvestorCard extends StatelessWidget {
                 height: size.height * 0.4,
                 width: 350,
                 placeholder: (context, url) => const Center(
-                    child: AnimatedSwitcher(
-                  duration: Duration(seconds: 1),
-                  child: Icon(Icons.image, size: 50, color: Colors.grey),
-                )),
+                  child: AnimatedSwitcher(
+                    duration: Duration(seconds: 1),
+                    child: Icon(Icons.image, size: 50, color: Colors.grey),
+                  ),
+                ),
                 errorWidget: (context, url, error) => const Icon(
                   Icons.broken_image,
                   color: Colors.red,

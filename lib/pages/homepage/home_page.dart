@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fundora/data.dart';
 import 'package:fundora/pages/homepage/funding_opportunities_widget.dart';
 import 'package:fundora/pages/homepage/header_text.dart';
 // import 'package:fundora/pages/homepage/header_text.dart';
@@ -44,7 +43,7 @@ class EntrepreneurHomePage extends StatelessWidget {
             const SizedBox(height: 24),
             const HeaderText(),
             const SizedBox(height: 16),
-            PopularInvestors(investors: investors),
+            PopularInvestors(),
             const SizedBox(height: 24),
             EntrepreneurInsights(),
             FundingOpportunities()

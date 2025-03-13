@@ -5,35 +5,47 @@ import 'package:fundora/pages/investors/investment_focus_chips.dart';
 import 'package:fundora/pages/investors/investor_image.dart';
 
 class InvestorDetailsPage extends StatelessWidget {
-  const InvestorDetailsPage({super.key});
+  final String name;
+  final String location;
+  final String imageUrl;
+  final String bio;
+  final List<String> investmentFocus;
+  final String contact;
+
+  const InvestorDetailsPage({
+    super.key,
+    required this.name,
+    required this.location,
+    required this.imageUrl,
+    required this.bio,
+    required this.investmentFocus,
+    required this.contact,
+  });
 
   @override
   Widget build(BuildContext context) {
-    const String bio =
-        "Experienced investor with a passion for innovative startups in AI and fintech. Has backed over 20+ startups globally.";
-
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text(name)),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
-            spacing: 15,
+            spacing: 10,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InvestorImage(),
-              InvestorInfo(bio: bio),
+              InvestorImage(imageUrl: imageUrl),
+              InvestorInfo(name: name, bio: bio),
               SectionTitle(title: "Contact Information"),
               ContactInformation(
+                contact: contact,
                 isPremiumUser: false,
+                location: location,
               ),
               SectionTitle(title: "About"),
-              SectionContent(
-                content: bio,
-              ),
+              SectionContent(content: bio),
               SectionTitle(title: "Investment Focus"),
-              InvestmentFocusChips(),
-              
+              InvestmentFocusChips(investmentFocus: investmentFocus),
+              const SizedBox(height: 10),
               ActionButtons(),
             ],
           ),
@@ -44,8 +56,9 @@ class InvestorDetailsPage extends StatelessWidget {
 }
 
 class InvestorInfo extends StatelessWidget {
+  final String name;
   final String bio;
-  const InvestorInfo({super.key, required this.bio});
+  const InvestorInfo({super.key, required this.name, required this.bio});
 
   String generateShortTitle(String bio) {
     List<String> keywords = [
@@ -69,14 +82,10 @@ class InvestorInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "John Doe",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          generateShortTitle(bio),
-          style: const TextStyle(fontSize: 18, color: Colors.grey),
-        ),
+        Text(name,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        Text(generateShortTitle(bio),
+            style: const TextStyle(fontSize: 18, color: Colors.grey)),
       ],
     );
   }
