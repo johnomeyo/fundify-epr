@@ -6,7 +6,8 @@ class AllInvestorsPage extends StatelessWidget {
   const AllInvestorsPage({super.key});
 
   Future<List<Map<String, dynamic>>> fetchInvestors() async {
-    final snapshot = await FirebaseFirestore.instance.collection('investors').get();
+    final snapshot =
+        await FirebaseFirestore.instance.collection('investors').get();
     return snapshot.docs.map((doc) => doc.data()).toList();
   }
 
@@ -20,7 +21,7 @@ class AllInvestorsPage extends StatelessWidget {
           future: fetchInvestors(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator.adaptive());
             }
 
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -39,7 +40,8 @@ class AllInvestorsPage extends StatelessWidget {
                   location: data["location"] ?? "Unknown",
                   imageUrl: data["imageUrl"] ?? "",
                   bio: data["bio"] ?? "No bio available.",
-                  investmentFocus: List<String>.from(data["investmentFocus"] ?? []),
+                  investmentFocus:
+                      List<String>.from(data["investmentFocus"] ?? []),
                   contact: data["email"] ?? "",
                 );
               },

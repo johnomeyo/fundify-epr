@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fundora/auth/profle_setup_page.dart';
 
 class WelcomeHeader extends StatelessWidget {
   const WelcomeHeader({super.key});
@@ -6,7 +7,7 @@ class WelcomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Container(
       constraints: const BoxConstraints(
         minHeight: 150, // Minimum height to ensure content fits
@@ -24,7 +25,7 @@ class WelcomeHeader extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.primary.withOpacity(0.2),
+            color: theme.colorScheme.primary.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -37,7 +38,7 @@ class WelcomeHeader extends StatelessWidget {
             bottom: -20,
             child: CircleAvatar(
               radius: 80,
-              backgroundColor: Colors.white.withOpacity(0.1),
+              backgroundColor: Colors.white.withValues(alpha: 0.1),
             ),
           ),
           Positioned(
@@ -45,7 +46,7 @@ class WelcomeHeader extends StatelessWidget {
             top: -30,
             child: CircleAvatar(
               radius: 60,
-              backgroundColor: Colors.white.withOpacity(0.1),
+              backgroundColor: Colors.white.withValues(alpha: 0.1),
             ),
           ),
           Padding(
@@ -72,13 +73,18 @@ class WelcomeHeader extends StatelessWidget {
                   child: Text(
                     "Connect with investors and grow your startup",
                     style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white.withValues(alpha: 0.9),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProfileSetupPage()));
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: theme.colorScheme.primary,
