@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'chat_page.dart';
 
 class MessageTile extends StatelessWidget {
   final String imageUrl;
@@ -18,10 +17,10 @@ class MessageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ChatPage()),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => ChatPage()),
+        // );
       },
       leading: CircleAvatar(
         radius: 24, // Reduced size for better UI balance
