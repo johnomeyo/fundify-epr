@@ -88,7 +88,7 @@ class MessagesPage extends StatelessWidget {
                     );
                   }
 
-                  String name = 'Jax Briggs';
+                  String name = 'Uknown User';
                   String imageUrl = '';
 
                   if (userSnapshot.hasData && userSnapshot.data!.exists) {
@@ -97,14 +97,13 @@ class MessagesPage extends StatelessWidget {
                     name = userData?['name'] ??
                         userData?['displayName'] ??
                         'Unknown Usher';
-                    imageUrl = userData?['imageUrl'] ?? '';
+                    imageUrl = userData?['image'] ?? '';
                   }
 
                   return MessageTile(
                     chatId: chatDoc.id,
                     otherUserId: otherUserId,
-                    imageUrl:
-                        "https://art.ngfiles.com/images/2069000/2069032_nr-inko_mr-raven-pfp.png?f1631341251",
+                    imageUrl:imageUrl,
                     name: name,
                     lastMessage: chatData['lastMessage'] ?? 'No messages yet',
                     timestamp:
@@ -161,62 +160,59 @@ class MessageTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ChatPage(
-                    otherUserId: otherUserId,
-                    otherUserName: name,
-                  ),
+        child: ListTile(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatPage(
+                  otherUserId: otherUserId,
+                  otherUserName: name,
                 ),
-              );
-            },
-            leading: CircleAvatar(
-              radius: 24,
-              backgroundColor: Colors.grey[300],
-              child: imageUrl.isEmpty
-                  ? Text(
-                      name.isNotEmpty ? name[0].toUpperCase() : '?',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black54,
-                      ),
-                    )
-                  : ClipOval(
-                      child: CachedNetworkImage(
-                        imageUrl: imageUrl,
-                        width: 48,
-                        height: 48,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(strokeWidth: 2),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error, color: Colors.red),
-                      ),
-                    ),
-            ),
-            title:
-                Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: Text(
-              lastMessage,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            trailing: timeText.isNotEmpty
+              ),
+            );
+          },
+          leading: CircleAvatar(
+            radius: 24,
+            backgroundColor: Colors.grey[300],
+            child: imageUrl.isEmpty
                 ? Text(
-                    timeText,
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 12,
+                    name.isNotEmpty ? name[0].toUpperCase() : '?',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black54,
                     ),
                   )
-                : null,
+                : ClipOval(
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(strokeWidth: 2),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error, color: Colors.red),
+                    ),
+                  ),
           ),
+          title:
+              Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+          subtitle: Text(
+            lastMessage,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: timeText.isNotEmpty
+              ? Text(
+                  timeText,
+                  style: TextStyle(
+                    color: Colors.grey[600],
+                    fontSize: 12,
+                  ),
+                )
+              : null,
         ),
       ),
     );

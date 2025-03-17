@@ -36,7 +36,7 @@ class PopularInvestors extends StatelessWidget {
                 child: InvestorCard(
                   name: data['name'] ?? 'Unknown',
                   location: data['location'] ?? 'Unknown',
-                  imageUrl: data['imageUrl'] ?? '',
+                  imageUrl: data['image'] ?? '',
                   bio: data['bio'] ?? 'No bio available.', // 🔹 Added bio
                   investmentFocus: List<String>.from(data['investmentFocus'] ??
                       []), // 🔹 Added investmentFocus
