@@ -103,7 +103,8 @@ class MessagesPage extends StatelessWidget {
                   return MessageTile(
                     chatId: chatDoc.id,
                     otherUserId: otherUserId,
-                    imageUrl: "https://art.ngfiles.com/images/2069000/2069032_nr-inko_mr-raven-pfp.png?f1631341251",
+                    imageUrl:
+                        "https://art.ngfiles.com/images/2069000/2069032_nr-inko_mr-raven-pfp.png?f1631341251",
                     name: name,
                     lastMessage: chatData['lastMessage'] ?? 'No messages yet',
                     timestamp:
