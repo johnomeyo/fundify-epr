@@ -38,7 +38,7 @@ class AllInvestorsPage extends StatelessWidget {
                 return InvestorCard(
                   name: data["name"] ?? "Unknown",
                   location: data["location"] ?? "Unknown",
-                  imageUrl: data["imageUrl"] ?? "",
+                  imageUrl: data["image"] ?? "",
                   bio: data["bio"] ?? "No bio available.",
                   investmentFocus:
                       List<String>.from(data["investmentFocus"] ?? []),

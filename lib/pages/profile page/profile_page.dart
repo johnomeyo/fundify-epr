@@ -65,7 +65,7 @@ class ProfilePage extends StatelessWidget {
                 
                 // Description Section
                 CustomCard(
-                  title: "Description",
+                  title: "Company",
                   children: [
                     TextSection(
                       title: "Description",
@@ -131,7 +131,7 @@ class ProfilePage extends StatelessWidget {
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
-                    title: const Text("Emily Carter"),
+                    title: const Text(data['founder'] ?? 'Unkown Founder'),
                     subtitle: const Text("Founder"),
                   ),
                 ),

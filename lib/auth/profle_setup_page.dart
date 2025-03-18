@@ -135,6 +135,7 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
     try {
       // Get current user ID
       String userId = FirebaseAuth.instance.currentUser!.uid;
+      String? founderName = FirebaseAuth.instance.currentUser!.displayName;
 
       // Prepare data to be saved
       Map<String, dynamic> profileData = {
@@ -150,6 +151,7 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
         "logo":
             "https://images.unsplash.com/photo-1496200186974-4293800e2c20?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "timestamp": FieldValue.serverTimestamp(), // Firestore timestamp
+        'founder':founderName
       };
 
       // Save profile data to Firestore

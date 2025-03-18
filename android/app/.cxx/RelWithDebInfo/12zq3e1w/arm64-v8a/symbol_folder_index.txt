@@ -1,0 +1,1 @@
+C:\Flutter Projects\fundora\build\app\intermediates\cxx\RelWithDebInfo\12zq3e1w\obj\arm64-v8a
