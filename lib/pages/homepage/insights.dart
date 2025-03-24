@@ -54,23 +54,23 @@ class EntrepreneurInsights extends StatelessWidget {
       {
         'title': 'How to Perfect Your Pitch Deck',
         'category': 'Fundraising',
-        'readTime': '5 min read',
+        'readTime': '10 min read',
         'icon': Icons.slideshow,
-        'url': 'https://www.youtube.com/watch?v=pfl_vS2GB4A',
+        'url': 'https://www.youtube.com/watch?v=SB16xgtFmco',
       },
       {
         'title': 'Financial Projections That Impress Investors',
         'category': 'Finance',
         'readTime': '7 min read',
         'icon': Icons.bar_chart,
-        'url': 'https://www.youtube.com/',
+        'url': 'https://www.indeed.com/career-advice/career-development/financial-projection-startup',
       },
       {
         'title': 'Top Industries Attracting VC Funding in 2025',
         'category': 'Market Trends',
         'readTime': '4 min read',
         'icon': Icons.trending_up,
-        'url': 'https://example.com/vc-funding-trends-2025',
+        'url': 'https://eqvista.com/industries-sectors-received-vc-funding/',
       },
     ];
 
