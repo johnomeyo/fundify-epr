@@ -131,7 +131,7 @@ class ProfilePage extends StatelessWidget {
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
-                    title: const Text(data['founder'] ?? 'Unkown Founder'),
+                    title:  Text(data['founder'] ?? 'Unkown Founder'),
                     subtitle: const Text("Founder"),
                   ),
                 ),

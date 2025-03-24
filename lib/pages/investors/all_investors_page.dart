@@ -30,7 +30,13 @@ class AllInvestorsPage extends StatelessWidget {
 
             final investors = snapshot.data!;
 
-            return ListView.builder(
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 0.85, // Adjust this value based on your card's dimensions
+              ),
               itemCount: investors.length,
               itemBuilder: (context, index) {
                 final data = investors[index];
