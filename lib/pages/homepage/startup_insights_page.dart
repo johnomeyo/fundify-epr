@@ -157,19 +157,19 @@ class StartupInsightsPage extends StatelessWidget {
         'title': 'Startup Funding Guide',
         'subtitle': 'Comprehensive fundraising strategies',
         'icon': Icons.attach_money,
-        'url': 'https://example.com/startup-funding-guide',
+        'url': 'https://www.bunch.capital/blog-posts/comprehensive-guide-startup-funding-sources-and-options',
       },
       {
         'title': 'Market Research Toolkit',
         'subtitle': 'Tools for startup market analysis',
         'icon': Icons.analytics,
-        'url': 'https://example.com/market-research-toolkit',
+        'url': 'https://blog.hubspot.com/marketing/market-research-tools-resources',
       },
       {
         'title': 'Startup Legal Checklist',
         'subtitle': 'Essential legal considerations',
         'icon': Icons.gavel,
-        'url': 'https://example.com/startup-legal-checklist',
+        'url': 'https://www.wyldeinternational.com/post/entrepreneur-s-guide-legal-requirements-for-starting-a-business-in-kenya',
       },
     ];
 
