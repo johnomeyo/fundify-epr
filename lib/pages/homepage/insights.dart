@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fundora/pages/homepage/startup_insights_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EntrepreneurInsights extends StatelessWidget {
@@ -25,7 +26,9 @@ class EntrepreneurInsights extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => StartupInsightsPage()));
+              },
               child: const Text("View All"),
             ),
           ],
