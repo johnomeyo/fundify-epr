@@ -43,7 +43,7 @@ class InvestorCard extends StatelessWidget {
       },
       child: Container(
         height: size.height * 0.4,
-        width: 350,
+        width: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.grey.shade100,
@@ -55,8 +55,8 @@ class InvestorCard extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: imageUrl,
                 fit: BoxFit.cover,
-                height: size.height * 0.4,
-                width: 350,
+                height: size.height * 0.2,
+                width: 250,
                 placeholder: (context, url) => const Center(
                   child: AnimatedSwitcher(
                     duration: Duration(seconds: 1),

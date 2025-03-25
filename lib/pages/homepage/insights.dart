@@ -11,27 +11,24 @@ class EntrepreneurInsights extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  "Startup Insights",
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                "Startup Insights",
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              TextButton(
-                onPressed: () {},
-                child: const Text("View All"),
-              ),
-            ],
-          ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text("View All"),
+            ),
+          ],
         ),
         const SizedBox(height: 12),
         _buildInsightCards(context),
@@ -77,7 +74,7 @@ class EntrepreneurInsights extends StatelessWidget {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      // padding: const EdgeInsets.symmetric(horizontal: 16.0),
       itemCount: insights.length,
       itemBuilder: (context, index) {
         final insight = insights[index];
@@ -90,7 +87,7 @@ class EntrepreneurInsights extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: theme.colorScheme.outline.withOpacity(0.2),
+                  color: theme.colorScheme.outline.withValues(alpha:0.2),
                 ),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -161,7 +158,7 @@ class EntrepreneurInsights extends StatelessWidget {
                                       Icons.access_time,
                                       size: 12,
                                       color: theme.colorScheme.onSurface
-                                          .withOpacity(0.6),
+                                          .withValues(alpha:0.6),
                                     ),
                                     const SizedBox(width: 4),
                                     Text(
@@ -169,7 +166,7 @@ class EntrepreneurInsights extends StatelessWidget {
                                       style:
                                           theme.textTheme.bodySmall?.copyWith(
                                         color: theme.colorScheme.onSurface
-                                            .withOpacity(0.6),
+                                            .withValues(alpha:0.6),
                                       ),
                                     ),
                                   ],

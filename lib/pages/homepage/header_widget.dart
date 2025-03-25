@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fundora/auth/profle_setup_page.dart';
 
 class WelcomeHeader extends StatelessWidget {
   const WelcomeHeader({super.key});
@@ -10,7 +9,7 @@ class WelcomeHeader extends StatelessWidget {
 
     return Container(
       constraints: const BoxConstraints(
-        minHeight: 150, // Minimum height to ensure content fits
+        minHeight: 160, // Minimum height to ensure content fits
       ),
       width: double.infinity,
       decoration: BoxDecoration(
@@ -77,23 +76,25 @@ class WelcomeHeader extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProfileSetupPage()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: theme.colorScheme.primary,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.rocket_launch_outlined,
+                      color: Colors.white.withValues(alpha: 0.8),
+                      size: 24,
                     ),
-                  ),
-                  child: const Text("Submit a Pitch"),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        "Empower your startup journey with strategic connections",
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white.withValues(alpha: 0.7),
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
