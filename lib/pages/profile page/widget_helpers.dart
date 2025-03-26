@@ -16,30 +16,46 @@ class MetricItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          Icon(Icons.check_circle, color: color, size: 20),
-          const SizedBox(width: 8),
-          Text(
-            "$label: ",
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            children: [
+              Icon(Icons.check_circle, color: color, size: 20),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  "$label: ",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold, 
+                    fontSize: 16,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  value?.isNotEmpty == true ? value! : "N/A",
+                  style: const TextStyle(
+                    fontSize: 16, 
+                    color: Colors.black87,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  textAlign: TextAlign.right,
+                  maxLines: 1,
+                ),
+              ),
+            ],
           ),
-          const Spacer(),
-          Expanded(
-            child: Text(
-              value?.isNotEmpty == true ? value! : "N/A",
-              style: const TextStyle(fontSize: 16, color: Colors.black87),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
-
 /// A reusable widget for displaying a text section with a title and content.
 class TextSection extends StatelessWidget {
   final String title;
@@ -83,30 +99,39 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-              const SizedBox(height: 8),
-              ...children,
-            ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
-        ),
-      ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                ...children.map((child) => 
+                  child is Row 
+                    ? SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: child,
+                      )
+                    : child
+                ).toList(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
