@@ -42,11 +42,11 @@ class InvestorCard extends StatelessWidget {
         );
       },
       child: Container(
-        height: size.height * 0.4,
+        height: size.height * 0.2,
         width: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.grey.shade100,
+          color: Colors.white,
         ),
         child: Stack(
           children: [

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -79,6 +80,15 @@ class StartupInsightsPage extends StatelessWidget {
         'url': 'https://eqvista.com/industries-sectors-received-vc-funding/',
         'color': Colors.purple,
       },
+      {
+        'title': 'Pitch Storytelling Masterclass',
+        'description':
+            'Transform your startup narrative into an investor magnet',
+        'icon': Icons.auto_stories,
+        'url':
+            'https://www.entrepreneur.com/leadership/startup-pitch-storytelling-guide',
+        'color': Colors.orange,
+      }
     ];
 
     return Padding(
@@ -157,19 +167,22 @@ class StartupInsightsPage extends StatelessWidget {
         'title': 'Startup Funding Guide',
         'subtitle': 'Comprehensive fundraising strategies',
         'icon': Icons.attach_money,
-        'url': 'https://www.bunch.capital/blog-posts/comprehensive-guide-startup-funding-sources-and-options',
+        'url':
+            'https://www.bunch.capital/blog-posts/comprehensive-guide-startup-funding-sources-and-options',
       },
       {
         'title': 'Market Research Toolkit',
         'subtitle': 'Tools for startup market analysis',
         'icon': Icons.analytics,
-        'url': 'https://blog.hubspot.com/marketing/market-research-tools-resources',
+        'url':
+            'https://blog.hubspot.com/marketing/market-research-tools-resources',
       },
       {
         'title': 'Startup Legal Checklist',
         'subtitle': 'Essential legal considerations',
         'icon': Icons.gavel,
-        'url': 'https://www.wyldeinternational.com/post/entrepreneur-s-guide-legal-requirements-for-starting-a-business-in-kenya',
+        'url':
+            'https://www.wyldeinternational.com/post/entrepreneur-s-guide-legal-requirements-for-starting-a-business-in-kenya',
       },
     ];
 
@@ -362,7 +375,7 @@ class StartupInsightsPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                        color: theme.colorScheme.outline.withAlpha(51),
                       ),
                     ),
                     child: Column(
@@ -372,11 +385,22 @@ class StartupInsightsPage extends StatelessWidget {
                           borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(12),
                           ),
-                          child: Image.network(
-                            story['imageUrl'] as String,
+                          child: CachedNetworkImage(
+                            imageUrl: story['imageUrl'] as String,
                             height: 150,
                             width: double.infinity,
                             fit: BoxFit.cover,
+                            placeholder: (context, url) => Center(
+                              child: AnimatedSwitcher(
+                                duration: Duration(seconds: 1),
+                                child: Icon(Icons.image,
+                                    size: 50, color: Colors.grey),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Icon(
+                              Icons.error,
+                              color: theme.colorScheme.error,
+                            ),
                           ),
                         ),
                         Padding(

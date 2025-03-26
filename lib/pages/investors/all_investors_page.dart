@@ -35,7 +35,7 @@ class AllInvestorsPage extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
-                childAspectRatio: 0.85, // Adjust this value based on your card's dimensions
+                // childAspectRatio: 0.85, // Adjust this value based on your card's dimensions
               ),
               itemCount: investors.length,
               itemBuilder: (context, index) {
