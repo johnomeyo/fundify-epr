@@ -1,8 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:fundora/services/auth_services.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
+
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  bool _isLoading = false;
+
+  Future<void> _handleGoogleSignIn() async {
+    setState(() {
+      _isLoading = true; // Show loading indicator
+    });
+
+    final userCredential = await AuthServices().signInWithGoogle();
+
+    setState(() {
+      _isLoading = false; // Hide loading indicator
+    });
+
+    if (userCredential != null) {
+      // Navigate to the next screen after a successful sign-in
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Sign-in failed. Please try again.")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,17 +39,14 @@ class SignInPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
-            spacing: 10,
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // App Logo / Branding
               CircleAvatar(
                 radius: 80,
-                backgroundColor:
-                    Colors.grey.shade200, // Optional background color
-                foregroundImage:
-                    AssetImage("assets/logo2.jpeg"), // Uses image directly
+                backgroundColor: Colors.grey.shade200,
+                foregroundImage: const AssetImage("assets/logo2.jpeg"),
               ),
               const SizedBox(height: 24),
 
@@ -47,36 +72,30 @@ class SignInPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-              // Google Sign-In Button
+
+              // Sign-In Button with Loading Indicator
               SizedBox(
                 width: double.infinity,
-                child: FilledButton(
-                  onPressed: () async {
-                    // //Add Google Sign-In Logic
-                    await AuthServices().signInWithGoogle();
-                    // Navigator.of(context).pushAndRemoveUntil(
-                    //     MaterialPageRoute(builder: (ctx) => ProfileSetupPage()),
-                    //     (route) => false);
-                  },
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  // icon: Image.asset(
-                  //   'assets/google_logo.png', // Ensure you have a Google logo asset
-                  //   height: 24,
-                  //   width: 24,
-                  // ),
-                  child: const Text(
-                    "Sign in with Google",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+                child: _isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : FilledButton(
+                        onPressed: _handleGoogleSignIn,
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                          "Sign in with Google",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
               ),
             ],
           ),
