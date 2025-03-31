@@ -46,7 +46,7 @@ class _SignInPageState extends State<SignInPage> {
               CircleAvatar(
                 radius: 80,
                 backgroundColor: Colors.grey.shade200,
-                foregroundImage: const AssetImage("assets/logo2.jpeg"),
+                foregroundImage: const AssetImage("assets/dark-logo.jpeg"),
               ),
               const SizedBox(height: 24),
 

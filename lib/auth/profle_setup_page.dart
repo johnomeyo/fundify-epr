@@ -331,7 +331,7 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
           TextFormField(
             controller: _fundingGoalController,
             decoration: const InputDecoration(
-              labelText: "Funding Goal (\$)*",
+              labelText: "Your Funding Goal (\$)*",
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.attach_money),
             ),
@@ -343,7 +343,7 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
           TextFormField(
             controller: _currentFundingController,
             decoration: const InputDecoration(
-              labelText: "Current Funding (\$)*",
+              labelText: "Your Current Funding (\$)*",
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.attach_money),
             ),
@@ -355,7 +355,7 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
           TextFormField(
             controller: _monthlyRevenueController,
             decoration: const InputDecoration(
-              labelText: "Monthly Revenue (\$)*",
+              labelText: "Your Monthly Revenue (\$)*",
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.attach_money),
             ),
@@ -400,7 +400,7 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
           TextFormField(
             controller: _problemController,
             decoration: const InputDecoration(
-              labelText: "Problem*",
+              labelText: "What problem are you solving*",
               border: OutlineInputBorder(),
             ),
             maxLines: 3,
@@ -411,7 +411,7 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
           TextFormField(
             controller: _solutionController,
             decoration: const InputDecoration(
-              labelText: "Solution*",
+              labelText: "What solution are you offering*",
               border: OutlineInputBorder(),
             ),
             maxLines: 3,
