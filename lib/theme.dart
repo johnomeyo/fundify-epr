@@ -8,7 +8,7 @@ class FlowTheme {
   static ColorScheme lightScheme() {
     return const ColorScheme(
       brightness: Brightness.light,
-      primary: Color(0xff2962ff),           // Flow blue
+      primary: Color(0xFF0674B4),           // Flow blue
       surfaceTint: Color(0x002962ff),       // Light tint of primary
       onPrimary: Color(0xffffffff),         // White text on primary
       primaryContainer: Color(0xffd8e6ff),  // Light blue container
@@ -88,7 +88,7 @@ class FlowTheme {
       shadow: Color(0xff000000),            // Shadow
       scrim: Color(0xff000000),             // Scrim
       inverseSurface: Color(0xfff5f5f5),    // Light inverse surface
-      inversePrimary: Color(0xff2962ff),    // Dark blue on light surface
+      inversePrimary: Color(0xFF0674B4),    // Dark blue on light surface
       primaryFixed: Color(0xffd8e6ff),      // Fixed primary container
       onPrimaryFixed: Color(0xff00174f),    // Fixed text on primary container
       primaryFixedDim: Color(0xffadc7ff),   // Dimmed primary container
@@ -147,7 +147,7 @@ class FlowTheme {
       inversePrimary: Color(0xff82b1ff),
       primaryFixed: Color(0xff4a85ff),      // More vibrant fixed
       onPrimaryFixed: Color(0xffffffff),    // White text for contrast
-      primaryFixedDim: Color(0xff2962ff),   // Darker fixed dim
+      primaryFixedDim: Color(0xFF0674B4),   // Darker fixed dim
       onPrimaryFixedVariant: Color(0xffffffff), // White text for contrast
       secondaryFixed: Color(0xff6c63ff),    // More vibrant fixed
       onSecondaryFixed: Color(0xffffffff),  // White text for contrast
@@ -353,10 +353,10 @@ class FlowTheme {
 
   /// Custom Colors
   static const customFlow = ExtendedColor(
-    seed: Color(0xff2962ff),
-    value: Color(0xff2962ff),
+    seed: Color(0xFF0674B4),
+    value: Color(0xFF0674B4),
     light: ColorFamily(
-      color: Color(0xff2962ff),
+      color: Color(0xFF0674B4),
       onColor: Color(0xffffffff),
       colorContainer: Color(0xffd8e6ff),
       onColorContainer: Color(0xff00174f),

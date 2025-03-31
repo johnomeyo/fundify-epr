@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fundora/pages/chat/chat_bubble.dart';
 import 'package:fundora/services/chat_services.dart';
 
-
 class ChatPage extends StatefulWidget {
   final String otherUserId;
   final String otherUserName;
@@ -120,12 +119,12 @@ class _ChatPageState extends State<ChatPage> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey
-                        .withValues(alpha: 0.2), // Fix for withValues -> withOpacity
+                    color: Colors.grey.withValues(
+                        alpha: 0.1), // Fix for withValues -> withOpacity
                     spreadRadius: 1,
                     blurRadius: 3,
                     offset: const Offset(0, -1),
@@ -165,9 +164,12 @@ class _ChatPageState extends State<ChatPage> {
                             backgroundColor: _messageController.text
                                     .trim()
                                     .isEmpty
-                                ? Colors.grey[300] // Grey when empty
-                                : Theme.of(context)
-                                    .primaryColor, // Primary color when has text
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .surface
+                                    .withValues(alpha: 0.3) // Grey when empty
+                                : Theme.of(context).colorScheme
+                                    .primary, // Primary color when has text
                             child: Icon(
                               Icons.arrow_upward,
                               color: _messageController.text.trim().isEmpty

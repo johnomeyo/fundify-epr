@@ -46,7 +46,7 @@ class InvestorCard extends StatelessWidget {
         width: 250,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
+          color: theme.colorScheme.surface,
         ),
         child: Stack(
           children: [
