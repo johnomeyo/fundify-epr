@@ -107,11 +107,17 @@ flutter:
 flutter_native_splash:
   color: "#ffffff"
   image: assets/dark-logo.jpeg
-
+  color_dark: "#121212"
+  image_dark: assets/dark-logo.jpeg
 
   android_12:
     image: assets/dark-logo.jpeg
     icon_background_color: "#ffffff"
+    color: "#ffffff"
+    image_dark: assets/dark-logo.jpeg
+    icon_background_color_dark: "#121212"  # Ensures the icon background also changes in dark mode
+    color_dark: "#121212"
+
 
   web: false
   ios: true
