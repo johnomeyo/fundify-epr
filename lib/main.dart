@@ -4,6 +4,7 @@ import 'package:fundora/pages/chat/messages_page.dart';
 import 'package:fundora/pages/homepage/home_page.dart';
 import 'package:fundora/pages/profile%20page/profile_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fundora/theme.dart';
 import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
@@ -26,11 +27,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final brightness = MediaQuery.of(context).platformBrightness;
+    TextTheme textTheme = Theme.of(context).textTheme;
+    FlowTheme theme = FlowTheme(textTheme);
     return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0674B4)),
-        useMaterial3: true,
-      ),
+      theme: brightness == Brightness.dark ? theme.dark() : theme.light(),
       home: const AuthGate(),
     );
   }
