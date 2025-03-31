@@ -45,7 +45,10 @@ class _SignInPageState extends State<SignInPage> {
               // App Logo / Branding
               CircleAvatar(
                 radius: 80,
-                backgroundColor: Colors.grey.shade200,
+                backgroundColor: Theme.of(context)
+                    .colorScheme
+                    .surface
+                    .withValues(alpha: 0.9),
                 foregroundImage: const AssetImage("assets/dark-logo.jpeg"),
               ),
               const SizedBox(height: 24),
@@ -56,7 +59,7 @@ class _SignInPageState extends State<SignInPage> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 22,
-                  color: Colors.black87,
+                  // color: Colors.black87,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -67,7 +70,7 @@ class _SignInPageState extends State<SignInPage> {
                 "Connect with investors and entrepreneurs to fund great ideas and grow businesses.",
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.black54,
+                  // color: Colors.black54,
                 ),
                 textAlign: TextAlign.center,
               ),

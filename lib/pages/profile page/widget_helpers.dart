@@ -42,7 +42,6 @@ class MetricItem extends StatelessWidget {
                   value?.isNotEmpty == true ? value! : "N/A",
                   style: const TextStyle(
                     fontSize: 16, 
-                    color: Colors.black87,
                     overflow: TextOverflow.ellipsis,
                   ),
                   textAlign: TextAlign.right,

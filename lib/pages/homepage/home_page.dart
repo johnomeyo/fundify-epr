@@ -21,16 +21,16 @@ class EntrepreneurHomePage extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications_outlined),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.person_outline),
-            onPressed: () {},
-          ),
-        ],
+        //actions: [
+        // IconButton(
+        //   icon: const Icon(Icons.notifications_outlined),
+        //   onPressed: () {},
+        // ),
+        // IconButton(
+        //   icon: const Icon(Icons.person_outline),
+        //   onPressed: () {},
+        // ),
+        //]
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

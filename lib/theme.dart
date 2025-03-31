@@ -362,7 +362,7 @@ class FlowTheme {
       onColorContainer: Color(0xff00174f),
     ),
     lightMediumContrast: ColorFamily(
-      color: Color(0xff0044c1),
+      color: Color(0xFF0A60B6),
       onColor: Color(0xffffffff),
       colorContainer: Color(0xff4a85ff),
       onColorContainer: Color(0xffffffff),
@@ -370,13 +370,13 @@ class FlowTheme {
     lightHighContrast: ColorFamily(
       color: Color(0xff00174f),
       onColor: Color(0xffffffff),
-      colorContainer: Color(0xff0044c1),
+      colorContainer: Color(0xFF0A60B6),
       onColorContainer: Color(0xffffffff),
     ),
     dark: ColorFamily(
       color: Color(0xff82b1ff),
       onColor: Color(0xff00174f),
-      colorContainer: Color(0xff0044c1),
+      colorContainer: Color(0xFF0A60B6),
       onColorContainer: Color(0xffd8e6ff),
     ),
     darkMediumContrast: ColorFamily(
