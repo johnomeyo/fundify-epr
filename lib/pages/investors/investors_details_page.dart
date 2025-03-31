@@ -30,131 +30,135 @@ class InvestorDetailsPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.surface,
         foregroundColor: Theme.of(context).colorScheme.onSurface,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Hero section with image and gradient overlay with border radius
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  // Use clipBehavior to ensure content stays within radius
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: Stack(
-                  children: [
-                    Container(
-                      height: 240,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withValues(alpha: 0.8),
-                            Theme.of(context)
-                                .colorScheme
-                                .primary
-                                .withValues(alpha: 0.4),
-                          ],
-                        ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Hero section with image and gradient overlay with border radius
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 2),
                       ),
-                    ),
-                    Positioned(
-                      top: 20,
-                      left: 0,
-                      right: 0,
-                      child: Center(
-                        child: CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Colors.white,
-                          child: ClipOval(
-                            child: InvestorImage(imageUrl: imageUrl),
+                    ],
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 240,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withValues(alpha: 0.8),
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withValues(alpha: 0.4),
+                            ],
                           ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      bottom: 20,
-                      left: 0,
-                      right: 0,
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Text(
-                              name,
-                              style: const TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                shadows: [
-                                  Shadow(
-                                    blurRadius: 10.0,
-                                    color: Colors.black26,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
-                              ),
+                      Positioned(
+                        top: 20,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundColor: Colors.white,
+                            child: ClipOval(
+                              child: InvestorImage(imageUrl: imageUrl),
                             ),
-                            const SizedBox(height: 8),
-                            _buildLocationChip(location),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      Positioned(
+                        bottom: 20,
+                        left: 16,
+                        right: 16,
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Text(
+                                name,
+                                style: const TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  shadows: [
+                                    Shadow(
+                                      blurRadius: 10.0,
+                                      color: Colors.black26,
+                                      offset: Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
+                              const SizedBox(height: 8),
+                              _buildLocationChip(location),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            // Investment Focus - Now using the minimalist card design
-            _buildMinimalistCard(
-              context: context,
-              title: "Investment Focus",
-              icon: Icons.trending_up,
-              customContent:
-                  InvestmentFocusChips(investmentFocus: investmentFocus),
-            ),
-
-            // About section - Minimalist card design
-            _buildMinimalistCard(
-              context: context,
-              title: "About",
-              icon: Icons.person_outline,
-              content: bio,
-            ),
-
-            // Contact section - Clean minimalist design
-            _buildMinimalistCard(
-              context: context,
-              title: "Contact Information",
-              icon: Icons.contact_mail_outlined,
-              customContent: ContactInformation(
-                contact: contact,
-                isPremiumUser: false,
-                location: location,
+              // Investment Focus - Now using the minimalist card design
+              _buildMinimalistCard(
+                context: context,
+                title: "Investment Focus",
+                icon: Icons.trending_up,
+                customContent:
+                    InvestmentFocusChips(investmentFocus: investmentFocus),
               ),
-            ),
 
-            // Action buttons
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: ActionButtons(),
-            ),
-            const SizedBox(height: 16),
-          ],
+              // About section - Minimalist card design
+              _buildMinimalistCard(
+                context: context,
+                title: "About",
+                icon: Icons.person_outline,
+                content: bio,
+              ),
+
+              // Contact section - Clean minimalist design
+              _buildMinimalistCard(
+                context: context,
+                title: "Contact Information",
+                icon: Icons.contact_mail_outlined,
+                customContent: ContactInformation(
+                  contact: contact,
+                  isPremiumUser: false,
+                  location: location,
+                ),
+              ),
+
+              // Action buttons
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                child: ActionButtons(),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );
@@ -172,11 +176,14 @@ class InvestorDetailsPage extends StatelessWidget {
         children: [
           const Icon(Icons.location_on, color: Colors.white, size: 16),
           const SizedBox(width: 4),
-          Text(
-            location,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
+          Flexible(
+            child: Text(
+              location,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
@@ -198,7 +205,6 @@ class InvestorDetailsPage extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        // Use Theme's card color instead of hardcoded white for dark mode support
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
@@ -215,12 +221,15 @@ class InvestorDetailsPage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
               const SizedBox(width: 8),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onSurface,
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],
@@ -238,15 +247,25 @@ class InvestorDetailsPage extends StatelessWidget {
                 height: 1.5,
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
               ),
+              softWrap: true,
             ),
           if (showDivider) ...[
             const SizedBox(height: 16),
             Divider(color: Theme.of(context).dividerColor.withValues(alpha: 0.5)),
             const SizedBox(height: 16),
             metrics != null
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: metrics,
+                ? LayoutBuilder(
+                    builder: (context, constraints) {
+                      return constraints.maxWidth < 300
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: metrics,
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: metrics,
+                            );
+                    },
                   )
                 : const SizedBox.shrink(),
           ],
@@ -284,6 +303,7 @@ class InvestorDetailsPage extends StatelessWidget {
                               .onSurface
                               .withValues(alpha: 0.8),
                         ),
+                        softWrap: true,
                       ),
                     ),
                   ],
