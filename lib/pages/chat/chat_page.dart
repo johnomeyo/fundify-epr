@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:fundora/pages/chat/chat_bubble.dart';
 import 'package:fundora/services/chat_services.dart';
 
@@ -21,8 +22,38 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final TextEditingController _messageController = TextEditingController();
   final ChatService _chatService = ChatService();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final String _currentUserId = FirebaseAuth.instance.currentUser?.uid ?? '';
   bool _isLoading = false;
+  bool _isUserBlocked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfUserIsBlocked();
+  }
+
+  Future<void> _checkIfUserIsBlocked() async {
+    if (_currentUserId.isEmpty) return;
+    
+    try {
+      final doc = await _firestore
+          .collection('users')
+          .doc(_currentUserId)
+          .collection('blockedUsers')
+          .doc(widget.otherUserId)
+          .get();
+      
+      if (mounted) {
+        setState(() {
+          _isUserBlocked = doc.exists;
+        });
+      }
+    } catch (e) {
+      // Handle error silently
+      print('Error checking blocked status: $e');
+    }
+  }
 
   @override
   void dispose() {
@@ -57,6 +88,217 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
+  void _blockUser() async {
+    // Show confirmation dialog
+    final bool confirm = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Block User'),
+        content: Text('Are you sure you want to block ${widget.otherUserName}? You won\'t receive messages from them anymore.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('CANCEL'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('BLOCK'),
+          ),
+        ],
+      ),
+    ) ?? false;
+
+    if (!confirm) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      // Add user to blocked list
+      await _firestore
+          .collection('users')
+          .doc(_currentUserId)
+          .collection('blockedUsers')
+          .doc(widget.otherUserId)
+          .set({
+            'blockedAt': FieldValue.serverTimestamp(),
+            'userName': widget.otherUserName,
+          });
+      
+      if (mounted) {
+        setState(() {
+          _isUserBlocked = true;
+          _isLoading = false;
+        });
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${widget.otherUserName} has been blocked')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error blocking user: $e')),
+        );
+      }
+    }
+  }
+
+  void _unblockUser() async {
+    // Show confirmation dialog
+    final bool confirm = await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Unblock User'),
+        content: Text('Do you want to unblock ${widget.otherUserName}?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('CANCEL'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('UNBLOCK'),
+          ),
+        ],
+      ),
+    ) ?? false;
+
+    if (!confirm) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      // Remove user from blocked list
+      await _firestore
+          .collection('users')
+          .doc(_currentUserId)
+          .collection('blockedUsers')
+          .doc(widget.otherUserId)
+          .delete();
+      
+      if (mounted) {
+        setState(() {
+          _isUserBlocked = false;
+          _isLoading = false;
+        });
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${widget.otherUserName} has been unblocked')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error unblocking user: $e')),
+        );
+      }
+    }
+  }
+
+  void _reportUser() async {
+    final reportReasons = [
+      'Inappropriate content',
+      'Harassment or bullying',
+      'Spam or scam',
+      'Impersonation',
+      'Other',
+    ];
+    
+    String? selectedReason;
+    String additionalInfo = '';
+    
+    // Show report dialog with reason selection
+    final bool? shouldReport = await showDialog<bool>(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: const Text('Report User'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Why are you reporting ${widget.otherUserName}?'),
+                const SizedBox(height: 16),
+                ...reportReasons.map((reason) => RadioListTile<String>(
+                  title: Text(reason),
+                  value: reason,
+                  groupValue: selectedReason,
+                  onChanged: (value) {
+                    setState(() => selectedReason = value);
+                  },
+                )),
+                const SizedBox(height: 16),
+                const Text('Additional information (optional):'),
+                const SizedBox(height: 8),
+                TextField(
+                  maxLines: 3,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Please provide details about your report...',
+                  ),
+                  onChanged: (value) {
+                    additionalInfo = value;
+                  },
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('CANCEL'),
+            ),
+            TextButton(
+              onPressed: selectedReason == null
+                  ? null
+                  : () => Navigator.of(context).pop(true),
+              child: const Text('REPORT'),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (shouldReport != true || selectedReason == null) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      // Create a unique report ID
+      final reportId = _firestore.collection('reports').doc().id;
+      
+      // Save the report
+      await _firestore.collection('reports').doc(reportId).set({
+        'reportingUserId': _currentUserId,
+        'reportedUserId': widget.otherUserId,
+        'reportedUserName': widget.otherUserName,
+        'reason': selectedReason,
+        'additionalInfo': additionalInfo,
+        'timestamp': FieldValue.serverTimestamp(),
+        'status': 'pending', // Can be 'pending', 'reviewed', 'resolved', etc.
+      });
+      
+      if (mounted) {
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Report submitted. Thank you for keeping our community safe.'),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error submitting report: $e')),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_currentUserId.isEmpty) {
@@ -67,8 +309,89 @@ class _ChatPageState extends State<ChatPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.otherUserName)),
-      body: Column(
+      appBar: AppBar(
+        title: Text(widget.otherUserName),
+        actions: [
+          // Report button
+          IconButton(
+            icon: const Icon(Icons.flag_outlined),
+            tooltip: 'Report User',
+            onPressed: _reportUser,
+          ),
+          // Block/Unblock button
+          IconButton(
+            icon: Icon(_isUserBlocked ? Icons.person_add : Icons.block),
+            tooltip: _isUserBlocked ? 'Unblock User' : 'Block User',
+            onPressed: _isUserBlocked ? _unblockUser : _blockUser,
+          ),
+          // More options button (optional)
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'block') {
+                _blockUser();
+              } else if (value == 'unblock') {
+                _unblockUser();
+              } else if (value == 'report') {
+                _reportUser();
+              }
+            },
+            itemBuilder: (context) => [
+              if (_isUserBlocked)
+                const PopupMenuItem(
+                  value: 'unblock',
+                  child: Row(
+                    children: [
+                      Icon(Icons.person_add),
+                      SizedBox(width: 8),
+                      Text('Unblock user'),
+                    ],
+                  ),
+                )
+              else
+                const PopupMenuItem(
+                  value: 'block',
+                  child: Row(
+                    children: [
+                      Icon(Icons.block),
+                      SizedBox(width: 8),
+                      Text('Block user'),
+                    ],
+                  ),
+                ),
+              const PopupMenuItem(
+                value: 'report',
+                child: Row(
+                  children: [
+                    Icon(Icons.flag_outlined),
+                    SizedBox(width: 8),
+                    Text('Report user'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+      body: _isUserBlocked 
+      ? Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.block, size: 64, color: Colors.grey),
+              const SizedBox(height: 16),
+              Text('You have blocked ${widget.otherUserName}', 
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 8),
+              ElevatedButton.icon(
+                onPressed: _unblockUser,
+                icon: const Icon(Icons.person_add),
+                label: const Text('Unblock User'),
+              ),
+            ],
+          ),
+        )
+      : Column(
         children: [
           // Messages list
           Expanded(
@@ -96,7 +419,8 @@ class _ChatPageState extends State<ChatPage> {
                   reverse: true,
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
-                    // Display messages in reverse order (newest at bottom)
+                    // Reverse the index since we want newest at the bottom
+                    // and our messages are ordered with oldest first
                     final messageData = messages[messages.length - 1 - index]
                         .data() as Map<String, dynamic>;
                     final isMe = messageData['senderId'] == _currentUserId;
@@ -123,8 +447,7 @@ class _ChatPageState extends State<ChatPage> {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withValues(
-                        alpha: 0.1), // Fix for withValues -> withOpacity
+                    color: Colors.grey.withOpacity(0.1),
                     spreadRadius: 1,
                     blurRadius: 3,
                     offset: const Offset(0, -1),
@@ -161,15 +484,15 @@ class _ChatPageState extends State<ChatPage> {
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
                         : CircleAvatar(
-                            backgroundColor: _messageController.text
-                                    .trim()
-                                    .isEmpty
-                                ? Theme.of(context)
-                                    .colorScheme
-                                    .surface
-                                    .withValues(alpha: 0.3) // Grey when empty
-                                : Theme.of(context).colorScheme
-                                    .primary, // Primary color when has text
+                            backgroundColor:
+                                _messageController.text.trim().isEmpty
+                                    ? Theme.of(context)
+                                        .colorScheme
+                                        .surface
+                                        .withOpacity(0.3)
+                                    : Theme.of(context)
+                                        .colorScheme
+                                        .primary, // Primary color when has text
                             child: Icon(
                               Icons.arrow_upward,
                               color: _messageController.text.trim().isEmpty
