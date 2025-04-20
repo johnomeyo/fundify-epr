@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fundora/main.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfileSetupPage extends StatefulWidget {
@@ -136,6 +136,23 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
       // Get current user ID
       String userId = FirebaseAuth.instance.currentUser!.uid;
       String? founderName = FirebaseAuth.instance.currentUser!.displayName;
+      // Upload image to Firebase Storage and get download URL
+      String logoUrl =
+          "https://images.unsplash.com/photo-1496200186974-4293800e2c20?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"; // Default URL
+
+      if (_companyLogo != null) {
+        // Create a reference to the logo file in storage
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('company_logos')
+            .child('${userId}_${DateTime.now().millisecondsSinceEpoch}.jpg');
+
+        // Upload the file
+        await storageRef.putFile(_companyLogo!);
+
+        // Get the download URL
+        logoUrl = await storageRef.getDownloadURL();
+      }
 
       // Prepare data to be saved
       Map<String, dynamic> profileData = {
@@ -148,10 +165,9 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
         "problem": _problemController.text,
         "solution": _solutionController.text,
         "ownerID": userId,
-        "logo":
-            "https://images.unsplash.com/photo-1496200186974-4293800e2c20?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "logo":logoUrl,
         "timestamp": FieldValue.serverTimestamp(), // Firestore timestamp
-        'founder':founderName
+        'founder': founderName
       };
 
       // Save profile data to Firestore
