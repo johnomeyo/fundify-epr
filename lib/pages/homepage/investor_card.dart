@@ -24,6 +24,10 @@ class InvestorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
+    String adjustGooglePhotoUrl(String? url, {int size = 400}) {
+      if (url == null) return '';
+      return url.replaceAll(RegExp(r's\d+-c'), 's$size-c');
+    }
 
     return InkWell(
       onTap: () {
@@ -33,7 +37,7 @@ class InvestorCard extends StatelessWidget {
             builder: (context) => InvestorDetailsPage(
               name: name,
               location: location,
-              imageUrl: imageUrl,
+              imageUrl: adjustGooglePhotoUrl(imageUrl),
               bio: bio,
               investmentFocus: investmentFocus,
               contact: contact,
@@ -53,7 +57,7 @@ class InvestorCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: CachedNetworkImage(
-                imageUrl: imageUrl,
+                imageUrl: adjustGooglePhotoUrl(imageUrl),
                 fit: BoxFit.cover,
                 height: size.height * 0.2,
                 width: 250,
