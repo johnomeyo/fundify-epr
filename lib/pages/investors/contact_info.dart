@@ -4,11 +4,12 @@ import 'dart:ui';
 class ContactInformation extends StatelessWidget {
   final bool isPremiumUser; // Add a boolean to check if the user is premium
   final String location;
+  final String email;
   const ContactInformation(
       {super.key,
       required this.isPremiumUser,
       required String contact,
-      required this.location});
+      required this.location, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class ContactInformation extends StatelessWidget {
           leading: const Icon(Icons.email),
           title: Stack(
             children: [
-              const Text("johndoe@example.com"),
+               Text(email),
               if (!isPremiumUser) // Apply blur if the user is not premium
                 Positioned.fill(
                   child: ClipRect(
@@ -36,26 +37,26 @@ class ContactInformation extends StatelessWidget {
           ),
         ),
         // Website ListTile
-        ListTile(
-          leading: const Icon(Icons.link),
-          title: Stack(
-            children: [
-              const Text("www.johndoeinvestments.com"),
-              if (!isPremiumUser) // Apply blur if the user is not premium
-                Positioned.fill(
-                  child: ClipRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                          sigmaX: 5, sigmaY: 5), // Adjust blur intensity
-                      child: Container(
-                        color: Colors.transparent, // Transparent background
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
+        // ListTile(
+        //   leading: const Icon(Icons.link),
+        //   title: Stack(
+        //     children: [
+        //       const Text("www.johndoeinvestments.com"),
+        //       if (!isPremiumUser) // Apply blur if the user is not premium
+        //         Positioned.fill(
+        //           child: ClipRect(
+        //             child: BackdropFilter(
+        //               filter: ImageFilter.blur(
+        //                   sigmaX: 5, sigmaY: 5), // Adjust blur intensity
+        //               child: Container(
+        //                 color: Colors.transparent, // Transparent background
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //     ],
+        //   ),
+        // ),
         // Location ListTile (no blur)
         ListTile(
           leading: Icon(Icons.location_on),

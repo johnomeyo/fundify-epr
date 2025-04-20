@@ -148,12 +148,14 @@ class InvestorDetailsPage extends StatelessWidget {
                   contact: contact,
                   isPremiumUser: false,
                   location: location,
+                  email: contact,
                 ),
               ),
 
               // Action buttons
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                 child: ActionButtons(),
               ),
               const SizedBox(height: 16),
@@ -245,13 +247,17 @@ class InvestorDetailsPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 height: 1.5,
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.8),
               ),
               softWrap: true,
             ),
           if (showDivider) ...[
             const SizedBox(height: 16),
-            Divider(color: Theme.of(context).dividerColor.withValues(alpha: 0.5)),
+            Divider(
+                color: Theme.of(context).dividerColor.withValues(alpha: 0.5)),
             const SizedBox(height: 16),
             metrics != null
                 ? LayoutBuilder(
