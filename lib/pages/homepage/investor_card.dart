@@ -9,6 +9,7 @@ class InvestorCard extends StatelessWidget {
   final String bio;
   final List<String> investmentFocus;
   final String contact;
+  final String uid;
 
   const InvestorCard({
     super.key,
@@ -18,6 +19,7 @@ class InvestorCard extends StatelessWidget {
     required this.bio,
     required this.investmentFocus,
     required this.contact,
+    required this.uid,
   });
 
   @override
@@ -41,6 +43,7 @@ class InvestorCard extends StatelessWidget {
               bio: bio,
               investmentFocus: investmentFocus,
               contact: contact,
+              investorID: uid,
             ),
           ),
         );

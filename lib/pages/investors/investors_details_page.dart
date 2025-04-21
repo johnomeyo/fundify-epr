@@ -11,6 +11,7 @@ class InvestorDetailsPage extends StatelessWidget {
   final String bio;
   final List<String> investmentFocus;
   final String contact;
+  final String investorID;
 
   const InvestorDetailsPage({
     super.key,
@@ -19,7 +20,7 @@ class InvestorDetailsPage extends StatelessWidget {
     required this.imageUrl,
     required this.bio,
     required this.investmentFocus,
-    required this.contact,
+    required this.contact, required this.investorID,
   });
 
   @override
@@ -156,7 +157,7 @@ class InvestorDetailsPage extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                child: ActionButtons(),
+                child: ActionButtons(investorName: name, investorID: investorID,),
               ),
               const SizedBox(height: 16),
             ],

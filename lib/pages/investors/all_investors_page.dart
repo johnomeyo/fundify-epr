@@ -49,6 +49,7 @@ class AllInvestorsPage extends StatelessWidget {
                   investmentFocus:
                       List<String>.from(data["investmentFocus"] ?? []),
                   contact: data["email"] ?? "",
+                  uid: data['uid'] ?? '',
                 );
               },
             );

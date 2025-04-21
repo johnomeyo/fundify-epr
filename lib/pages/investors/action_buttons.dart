@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fundora/pages/chat/chat_page.dart';
 
 class ActionButtons extends StatelessWidget {
-  const ActionButtons({super.key});
+  final String investorName;
+  final String investorID;
+  const ActionButtons(
+      {super.key, required this.investorName, required this.investorID});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +17,30 @@ class ActionButtons extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              _buildButton(
-                context: context,
-                icon: Icons.message,
-                label: "Message",
-                feature: "message",
-                isFullWidth: true,
+              // _buildButton(
+              //   context: context,
+              //   icon: Icons.message,
+              //   label: "Message",
+              //   feature: "message",
+              //   isFullWidth: true,
+              // ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChatPage(
+                              otherUserName: investorName,
+                              otherUserId: investorID,
+                            )),
+                  );
+                },
+                icon: const Icon(Icons.email, size: 16),
+                label: const Text("Contact"),
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                ),
               ),
               const SizedBox(height: 12),
               _buildButton(
@@ -31,17 +53,29 @@ class ActionButtons extends StatelessWidget {
             ],
           );
         }
-        
+
         // For normal screens, use row layout with flexible width
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: _buildButton(
-                context: context,
-                icon: Icons.message,
-                label: "Message",
-                feature: "message",
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChatPage(
+                              otherUserName: investorName,
+                              otherUserId: investorID,
+                            )),
+                  );
+                },
+                icon: const Icon(Icons.email, size: 16),
+                label: const Text("Contact"),
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                ),
               ),
             ),
             const SizedBox(width: 12),
@@ -66,7 +100,7 @@ class ActionButtons extends StatelessWidget {
     required String feature,
     bool isFullWidth = false,
   }) {
-    return FilledButton.tonalIcon(
+    return FilledButton.icon(
       onPressed: () => _showPremiumDialog(context, feature),
       icon: Icon(icon),
       label: Text(

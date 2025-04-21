@@ -40,7 +40,8 @@ class PopularInvestors extends StatelessWidget {
                   bio: data['bio'] ?? 'No bio available.', // 🔹 Added bio
                   investmentFocus: List<String>.from(data['investmentFocus'] ??
                       []), // 🔹 Added investmentFocus
-                  contact: data['email'] ?? '', // 🔹 Added contact
+                  contact: data['email'] ?? '',
+                  uid: data['uid'] ?? '', // 🔹 Added contact
                 ),
               );
             },
