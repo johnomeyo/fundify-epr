@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart' show FirebaseStorage;
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,36 +23,33 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late TextEditingController _problemController;
   late TextEditingController _solutionController;
   File? _logoImage;
-
+  late String _logo;
   @override
   void initState() {
     super.initState();
     // Initialize controllers with current profile data
     _companyNameController = TextEditingController(
-      text: widget.currentProfileData['companyName'] ?? ''
-    );
+        text: widget.currentProfileData['companyName'] ?? '');
     _descriptionController = TextEditingController(
-      text: widget.currentProfileData['description'] ?? ''
-    );
+        text: widget.currentProfileData['description'] ?? '');
     _industryController = TextEditingController(
-      text: widget.currentProfileData['industry'] ?? ''
-    );
-    _founderController = TextEditingController(
-      text: widget.currentProfileData['founder'] ?? ''
-    );
+        text: widget.currentProfileData['industry'] ?? '');
+    _founderController =
+        TextEditingController(text: widget.currentProfileData['founder'] ?? '');
     _fundingGoalController = TextEditingController(
-      text: widget.currentProfileData['fundingGoal']?.toString() ?? ''
-    );
-    _problemController = TextEditingController(
-      text: widget.currentProfileData['problem'] ?? ''
-    );
+        text: widget.currentProfileData['fundingGoal']?.toString() ?? '');
+    _problemController =
+        TextEditingController(text: widget.currentProfileData['problem'] ?? '');
     _solutionController = TextEditingController(
-      text: widget.currentProfileData['solution'] ?? ''
-    );
+        text: widget.currentProfileData['solution'] ?? '');
+    _logo = widget.currentProfileData['logo'] ?? '';
   }
 
   Future<void> _pickLogo() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
     if (pickedFile != null) {
       setState(() {
         _logoImage = File(pickedFile.path);
@@ -63,9 +61,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
     try {
       final userId = FirebaseAuth.instance.currentUser?.uid;
       if (userId == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User not logged in'))
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('User not logged in')));
         return;
       }
 
@@ -81,26 +78,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
       };
 
       // Implement logo upload if _logoImage is not null
-      // This would involve uploading the image to Firebase Storage 
+      // This would involve uploading the image to Firebase Storage
       // and getting the download URL to update in Firestore
+      if (_logoImage != null) {
+        // Your image storage logic
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('company_logos')
+            .child('${userId}_${DateTime.now().millisecondsSinceEpoch}.jpg');
 
+        // Upload the image to Firebase Storage
+        await storageRef.putFile(_logoImage!);
+
+        // Get the download URL of the uploaded image
+        final logoUrl = await storageRef.getDownloadURL();
+
+        // Add the logo URL to the update data
+        updateData['logo'] = logoUrl;
+      }
       // Update Firestore document
       await FirebaseFirestore.instance
-        .collection('startups')
-        .doc(userId)
-        .update(updateData);
+          .collection('startups')
+          .doc(userId)
+          .update(updateData);
 
       // Show success message and pop the page
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profile Updated Successfully. Restart to see your changes'))
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Profile Updated Successfully. Restart to see your changes')));
       Navigator.pop(context);
-
     } catch (e) {
       // Show error message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error updating profile: $e'))
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error updating profile: $e')));
     }
   }
 
@@ -141,16 +151,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 radius: 60,
                 backgroundColor: Colors.grey.shade200,
                 child: _logoImage != null
-                  ? ClipOval(child: Image.file(_logoImage!, fit: BoxFit.cover))
-                  : Icon(
-                      Icons.camera_alt, 
-                      size: 50, 
-                      color: Colors.grey.shade800
-                    ),
+                    ? ClipOval(
+                        child: Image.file(_logoImage!, fit: BoxFit.cover))
+                    : ClipOval(child: Image.network(_logo, fit: BoxFit.cover)),
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Text Fields
             TextField(
               controller: _companyNameController,
@@ -160,7 +167,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             TextField(
               controller: _descriptionController,
               maxLines: 3,
@@ -170,7 +177,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             TextField(
               controller: _industryController,
               decoration: const InputDecoration(
@@ -179,7 +186,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             TextField(
               controller: _founderController,
               decoration: const InputDecoration(
@@ -188,7 +195,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             TextField(
               controller: _fundingGoalController,
               keyboardType: TextInputType.number,
@@ -199,7 +206,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             TextField(
               controller: _problemController,
               maxLines: 3,
@@ -209,7 +216,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             TextField(
               controller: _solutionController,
               maxLines: 3,
