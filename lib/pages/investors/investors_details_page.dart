@@ -147,7 +147,7 @@ class InvestorDetailsPage extends StatelessWidget {
                 icon: Icons.contact_mail_outlined,
                 customContent: ContactInformation(
                   contact: contact,
-                  isPremiumUser: false,
+                  isPremiumUser: true,
                   location: location,
                   email: contact,
                 ),
