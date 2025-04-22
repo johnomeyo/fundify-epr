@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fundora/pages/chat/chat_page.dart';
+import 'package:url_launcher/url_launcher.dart' show launchUrl;
+import 'package:url_launcher/url_launcher_string.dart' show LaunchMode;
 
 class ActionButtons extends StatelessWidget {
   final String investorName;
@@ -17,13 +20,6 @@ class ActionButtons extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // _buildButton(
-              //   context: context,
-              //   icon: Icons.message,
-              //   label: "Message",
-              //   feature: "message",
-              //   isFullWidth: true,
-              // ),
               ElevatedButton.icon(
                 onPressed: () {
                   Navigator.push(
@@ -99,9 +95,16 @@ class ActionButtons extends StatelessWidget {
     required String label,
     required String feature,
     bool isFullWidth = false,
+    bool isGoogleMeet = true,
   }) {
     return FilledButton.icon(
-      onPressed: () => _showPremiumDialog(context, feature),
+      onPressed: () {
+        if (isGoogleMeet) {
+          _launchGoogleMeet(context);
+        } else {
+          _showPremiumDialog(context, feature);
+        }
+      },
       icon: Icon(icon),
       label: Text(
         label,
@@ -112,6 +115,81 @@ class ActionButtons extends StatelessWidget {
         minimumSize: isFullWidth
             ? WidgetStateProperty.all<Size>(const Size(double.infinity, 40))
             : null,
+      ),
+    );
+  }
+
+  void _launchGoogleMeet(BuildContext context) async {
+    const String googleMeetUrl = 'https://meet.google.com/new';
+
+    try {
+      // Try to launch using url_launcher with specific mode settings
+      final Uri url = Uri.parse(googleMeetUrl);
+      if (!await launchUrl(
+        url,
+        mode: LaunchMode
+            .externalApplication, // Forces opening in external browser
+      )) {
+        // If that fails, show a dialog with the URL
+        if (context.mounted) {
+          _showUrlDialog(context, googleMeetUrl);
+        }
+      }
+    } catch (e) {
+      debugPrint('Error launching Google Meet: $e');
+      // Show a dialog with the URL
+      if (context.mounted) {
+        _showUrlDialog(context, googleMeetUrl);
+      }
+    }
+  }
+
+  void _showUrlDialog(BuildContext context, String url) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Open Google Meet'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+                'Unable to open automatically. Copy this link and open in your browser:'),
+            const SizedBox(height: 12),
+            GestureDetector(
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: url));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Link copied to clipboard')),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        url,
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    const Icon(Icons.copy, size: 20),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Close'),
+          ),
+        ],
       ),
     );
   }
