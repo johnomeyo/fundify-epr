@@ -374,7 +374,7 @@ class MessageTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: ListTile(
-        tileColor: unreadCount > 0 ? Colors.blue.withOpacity(0.1) : null,
+        tileColor: unreadCount > 0 ? Colors.blue.withValues(alpha: 0.1) : null,
         onTap: () {
           Navigator.push(
             context,
@@ -447,7 +447,7 @@ class MessageTile extends StatelessWidget {
           )
         ),
         subtitle: Text(
-          isLastMessageFromMe ? 'You: $lastMessage' : lastMessage,
+          isLastMessageFromMe ? '$lastMessage' : lastMessage,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(

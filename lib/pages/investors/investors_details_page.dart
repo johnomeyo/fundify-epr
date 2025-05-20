@@ -20,7 +20,8 @@ class InvestorDetailsPage extends StatelessWidget {
     required this.imageUrl,
     required this.bio,
     required this.investmentFocus,
-    required this.contact, required this.investorID,
+    required this.contact,
+    required this.investorID,
   });
 
   @override
@@ -157,7 +158,11 @@ class InvestorDetailsPage extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                child: ActionButtons(investorName: name, investorID: investorID,),
+                child: ActionButtons(
+                  investorName: name,
+                  investorID: investorID,
+                  isPremium: false,
+                ),
               ),
               const SizedBox(height: 16),
             ],

@@ -167,7 +167,8 @@ class ProfileSetupPageState extends State<ProfileSetupPage> {
         "ownerID": userId,
         "logo":logoUrl,
         "timestamp": FieldValue.serverTimestamp(), // Firestore timestamp
-        'founder': founderName
+        'founder': founderName,
+        "isPremium": false,
       };
 
       // Save profile data to Firestore

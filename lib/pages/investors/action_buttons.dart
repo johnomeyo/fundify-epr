@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fundora/pages/chat/chat_page.dart';
+import 'package:fundora/pages/payment_wall/paywall_page.dart' show PaywallPage;
 import 'package:url_launcher/url_launcher.dart' show launchUrl;
 import 'package:url_launcher/url_launcher_string.dart' show LaunchMode;
 
 class ActionButtons extends StatelessWidget {
   final String investorName;
   final String investorID;
+  final bool isPremium;
   const ActionButtons(
-      {super.key, required this.investorName, required this.investorID});
+      {super.key,
+      required this.investorName,
+      required this.investorID,
+      required this.isPremium});
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +50,7 @@ class ActionButtons extends StatelessWidget {
                 label: "Schedule Call",
                 feature: "schedule calls",
                 isFullWidth: true,
+                isPremium: isPremium,
               ),
             ],
           );
@@ -56,16 +62,21 @@ class ActionButtons extends StatelessWidget {
           children: [
             Expanded(
               child: ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChatPage(
-                              otherUserName: investorName,
-                              otherUserId: investorID,
-                            )),
-                  );
-                },
+                onPressed: isPremium
+                    ? () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChatPage(
+                                    otherUserName: investorName,
+                                    otherUserId: investorID,
+                                  )),
+                        );
+                      }
+                    : () {
+                        _showPremiumDialog(context, "contact investors");
+                      },
+                // onPressed: () {
                 icon: const Icon(Icons.email, size: 16),
                 label: const Text("Contact"),
                 style: ElevatedButton.styleFrom(
@@ -77,6 +88,7 @@ class ActionButtons extends StatelessWidget {
             const SizedBox(width: 12),
             Expanded(
               child: _buildButton(
+                isPremium: isPremium,
                 context: context,
                 icon: Icons.video_call,
                 label: "Schedule Call",
@@ -94,17 +106,22 @@ class ActionButtons extends StatelessWidget {
     required IconData icon,
     required String label,
     required String feature,
+    required bool isPremium,
     bool isFullWidth = false,
     bool isGoogleMeet = true,
   }) {
     return FilledButton.icon(
-      onPressed: () {
-        if (isGoogleMeet) {
-          _launchGoogleMeet(context);
-        } else {
-          _showPremiumDialog(context, feature);
-        }
-      },
+      onPressed: isPremium
+          ? () {
+              if (isGoogleMeet) {
+                _launchGoogleMeet(context);
+              } else {
+                _showPremiumDialog(context, feature);
+              }
+            }
+          : () {
+              _showPremiumDialog(context, feature);
+            },
       icon: Icon(icon),
       label: Text(
         label,
@@ -257,7 +274,7 @@ class ActionButtons extends StatelessWidget {
                     },
                     child: const Text('Dismiss'),
                   ),
-                  FilledButton.tonal(
+                  FilledButton(
                     onPressed: () {
                       // Add your upgrade logic here
                       Navigator.of(context).pop();
@@ -273,15 +290,10 @@ class ActionButtons extends StatelessWidget {
   }
 
   void _handleUpgrade(BuildContext context) {
-    // Implement your payment processing logic here
-    // This is where you'd connect to your payment gateway
-
-    // For demonstration, just show a snackbar
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Redirecting to payment gateway...'),
-        duration: Duration(seconds: 2),
-      ),
-    );
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const PaywallPage(),
+        ));
   }
 }
