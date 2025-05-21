@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore;
+import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:flutter/material.dart';
 import 'package:fundora/pages/investors/action_buttons.dart';
 import 'package:fundora/pages/investors/contact_info.dart';
@@ -26,148 +28,178 @@ class InvestorDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String userId = FirebaseAuth.instance.currentUser?.uid ?? '';
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Theme.of(context).colorScheme.surface,
         foregroundColor: Theme.of(context).colorScheme.onSurface,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Hero section with image and gradient overlay with border radius
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 240,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withValues(alpha: 0.8),
-                              Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withValues(alpha: 0.4),
-                            ],
+      body: FutureBuilder(
+        future:
+            FirebaseFirestore.instance.collection('startups').doc(userId).get(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          // Handle loading state
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          // Handle error state
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Error loading profile: ${snapshot.error}'),
+            );
+          }
+
+          // Handle empty data
+          if (!snapshot.hasData || !snapshot.data!.exists) {
+            return const Center(
+              child: Text(
+                  'No startup profile found. Please complete your profile setup.'),
+            );
+          }
+          // Extract data from snapshot
+          final data = snapshot.data!.data() as Map<String, dynamic>;
+          bool isPremium = data['isPremium'] ?? false;
+
+          return SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Hero section with image and gradient overlay with border radius
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 10,
+                            offset: const Offset(0, 2),
                           ),
-                        ),
+                        ],
                       ),
-                      Positioned(
-                        top: 20,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: CircleAvatar(
-                            radius: 60,
-                            backgroundColor: Colors.white,
-                            child: ClipOval(
-                              child: InvestorImage(imageUrl: imageUrl),
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: 240,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withValues(alpha: 0.8),
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withValues(alpha: 0.4),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 20,
-                        left: 16,
-                        right: 16,
-                        child: Center(
-                          child: Column(
-                            children: [
-                              Text(
-                                name,
-                                style: const TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  shadows: [
-                                    Shadow(
-                                      blurRadius: 10.0,
-                                      color: Colors.black26,
-                                      offset: Offset(0, 2),
-                                    ),
-                                  ],
+                          Positioned(
+                            top: 20,
+                            left: 0,
+                            right: 0,
+                            child: Center(
+                              child: CircleAvatar(
+                                radius: 60,
+                                backgroundColor: Colors.white,
+                                child: ClipOval(
+                                  child: InvestorImage(imageUrl: imageUrl),
                                 ),
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
                               ),
-                              const SizedBox(height: 8),
-                              _buildLocationChip(location),
-                            ],
+                            ),
                           ),
-                        ),
+                          Positioned(
+                            bottom: 20,
+                            left: 16,
+                            right: 16,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    name,
+                                    style: const TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      shadows: [
+                                        Shadow(
+                                          blurRadius: 10.0,
+                                          color: Colors.black26,
+                                          offset: Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  _buildLocationChip(location),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
 
-              // Investment Focus - Now using the minimalist card design
-              _buildMinimalistCard(
-                context: context,
-                title: "Investment Focus",
-                icon: Icons.trending_up,
-                customContent:
-                    InvestmentFocusChips(investmentFocus: investmentFocus),
-              ),
+                  // Investment Focus - Now using the minimalist card design
+                  _buildMinimalistCard(
+                    context: context,
+                    title: "Investment Focus",
+                    icon: Icons.trending_up,
+                    customContent:
+                        InvestmentFocusChips(investmentFocus: investmentFocus),
+                  ),
 
-              // About section - Minimalist card design
-              _buildMinimalistCard(
-                context: context,
-                title: "About",
-                icon: Icons.person_outline,
-                content: bio,
-              ),
+                  // About section - Minimalist card design
+                  _buildMinimalistCard(
+                    context: context,
+                    title: "About",
+                    icon: Icons.person_outline,
+                    content: bio,
+                  ),
 
-              // Contact section - Clean minimalist design
-              _buildMinimalistCard(
-                context: context,
-                title: "Contact Information",
-                icon: Icons.contact_mail_outlined,
-                customContent: ContactInformation(
-                  contact: contact,
-                  isPremiumUser: true,
-                  location: location,
-                  email: contact,
-                ),
-              ),
+                  // Contact section - Clean minimalist design
+                  _buildMinimalistCard(
+                    context: context,
+                    title: "Contact Information",
+                    icon: Icons.contact_mail_outlined,
+                    customContent: ContactInformation(
+                      contact: contact,
+                      isPremiumUser: true,
+                      location: location,
+                      email: contact,
+                    ),
+                  ),
 
-              // Action buttons
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                child: ActionButtons(
-                  investorName: name,
-                  investorID: investorID,
-                  isPremium: false,
-                ),
+                  // Action buttons
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 24),
+                    child: ActionButtons(
+                      investorName: name,
+                      investorID: investorID,
+                      isPremium: isPremium,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
-              const SizedBox(height: 16),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

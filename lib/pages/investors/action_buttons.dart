@@ -234,7 +234,7 @@ class ActionButtons extends StatelessWidget {
             child: SingleChildScrollView(
               child: Text(
                 'Only premium users can $feature with investors. '
-                'Upgrade to premium for \$9.99 per month to unlock this feature.',
+                'View Details to unlock this feature.',
                 style: TextStyle(
                   fontSize: isSmallScreen ? 14 : 16,
                 ),
@@ -254,7 +254,7 @@ class ActionButtons extends StatelessWidget {
                           Navigator.of(context).pop();
                           _handleUpgrade(context);
                         },
-                        child: const Text('Upgrade to Premium'),
+                        child: const Text('View Details'),
                       ),
                       const SizedBox(height: 8),
                       TextButton(
@@ -280,7 +280,7 @@ class ActionButtons extends StatelessWidget {
                       Navigator.of(context).pop();
                       _handleUpgrade(context);
                     },
-                    child: const Text('Upgrade to Premium'),
+                    child: const Text('View Details'),
                   ),
                 ],
           actionsPadding: const EdgeInsets.all(12),
