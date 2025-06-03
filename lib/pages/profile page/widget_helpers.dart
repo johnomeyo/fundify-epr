@@ -29,7 +29,7 @@ class MetricItem extends StatelessWidget {
                 child: Text(
                   "$label: ",
                   style: const TextStyle(
-                    fontWeight: FontWeight.bold, 
+                    fontWeight: FontWeight.bold,
                     fontSize: 16,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -41,7 +41,7 @@ class MetricItem extends StatelessWidget {
                 child: Text(
                   value?.isNotEmpty == true ? value! : "N/A",
                   style: const TextStyle(
-                    fontSize: 16, 
+                    fontSize: 16,
                     overflow: TextOverflow.ellipsis,
                   ),
                   textAlign: TextAlign.right,
@@ -55,6 +55,7 @@ class MetricItem extends StatelessWidget {
     );
   }
 }
+
 /// A reusable widget for displaying a text section with a title and content.
 class TextSection extends StatelessWidget {
   final String title;
@@ -98,39 +99,38 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
-                const SizedBox(height: 8),
-                ...children.map((child) => 
-                  child is Row 
+              ),
+              const SizedBox(height: 8),
+              ...children.map(
+                (child) => child is Row
                     ? SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: child,
                       )
-                    : child
-                ).toList(),
-              ],
-            ),
+                    : child,
+              ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
