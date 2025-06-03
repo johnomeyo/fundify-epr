@@ -46,7 +46,8 @@ class _PaywallPageState extends State<PaywallPage>
       _isLoading = true;
     });
 
-    final scaffoldMessenger = ScaffoldMessenger.of(context); // For use in async gap
+    final scaffoldMessenger =
+        ScaffoldMessenger.of(context); // For use in async gap
 
     try {
       final Uri url = Uri.parse(PaywallPage.premiumUrl);
@@ -106,7 +107,8 @@ class _PaywallPageState extends State<PaywallPage>
               end: Alignment.bottomCenter,
               colors: [
                 colorScheme.surface, // Theme-aware surface color
-                colorScheme.surfaceContainerLowest, // Theme-aware subtle gradient end
+                colorScheme
+                    .surfaceContainerLowest, // Theme-aware subtle gradient end
               ],
             ),
           ),
@@ -120,7 +122,8 @@ class _PaywallPageState extends State<PaywallPage>
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: primaryColor.withValues(alpha: 0.25), // Adjusted opacity
+                        color: primaryColor.withValues(
+                            alpha: 0.25), // Adjusted opacity
                         blurRadius: 20,
                         spreadRadius: 5,
                       ),
@@ -143,13 +146,16 @@ class _PaywallPageState extends State<PaywallPage>
                 ),
                 const SizedBox(height: 16),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHigh, // Theme-aware container color
+                    color: colorScheme
+                        .surfaceContainerHigh, // Theme-aware container color
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: colorScheme.shadow.withValues(alpha: 0.1), // Theme-aware shadow
+                        color: colorScheme.shadow
+                            .withValues(alpha: 0.1), // Theme-aware shadow
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -177,7 +183,8 @@ class _PaywallPageState extends State<PaywallPage>
                 ),
                 const Spacer(),
                 ElevatedButton(
-                  onPressed: _isLoading ? null : () => _launchPremiumPage(context),
+                  onPressed:
+                      _isLoading ? null : () => _launchPremiumPage(context),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
                     foregroundColor: onPrimaryColor,
@@ -202,14 +209,15 @@ class _PaywallPageState extends State<PaywallPage>
                       : Text(
                           'Go to Premium Page',
                           style: textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold, color: onPrimaryColor),
+                              fontWeight: FontWeight.bold,
+                              color: onPrimaryColor),
                         ),
                 ),
                 const SizedBox(height: 16),
                 TextButton(
                   onPressed: () {
                     if (Navigator.canPop(context)) {
-                       Navigator.pop(context);
+                      Navigator.pop(context);
                     }
                   },
                   style: TextButton.styleFrom(
@@ -229,25 +237,25 @@ class _PaywallPageState extends State<PaywallPage>
     );
   }
 
-  Widget _buildFeaturesList(
-      BuildContext context, ColorScheme colorScheme, TextTheme textTheme, Brightness brightness) {
+  Widget _buildFeaturesList(BuildContext context, ColorScheme colorScheme,
+      TextTheme textTheme, Brightness brightness) {
     final features = [
       "Message investors first",
       "See who's viewed your profile",
       "Priority placement in discovery",
-      "Apply to exclusive pitch events",
-      "Profile insights & analytics",
+      // "Apply to exclusive pitch events",
+      // "Profile insights & analytics",
       "Early access to new features",
     ];
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHigh, // Theme-aware container color
+        color: colorScheme.surfaceContainerHigh,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.shadow.withValues(alpha: 0.1), // Theme-aware shadow
+            color: colorScheme.shadow.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -255,18 +263,22 @@ class _PaywallPageState extends State<PaywallPage>
       ),
       child: Column(
         children: features
-            .map((feature) => _buildFeatureTile(feature, colorScheme, textTheme, brightness))
+            .map((feature) =>
+                _buildFeatureTile(feature, colorScheme, textTheme, brightness))
             .toList(),
       ),
     );
   }
 
-  Widget _buildFeatureTile(
-      String text, ColorScheme colorScheme, TextTheme textTheme, Brightness brightness) {
+  Widget _buildFeatureTile(String text, ColorScheme colorScheme,
+      TextTheme textTheme, Brightness brightness) {
     // Define success colors based on brightness
     final bool isLight = brightness == Brightness.light;
-    final Color successColor = isLight ? Colors.green.shade700 : Colors.greenAccent.shade400;
-    final Color successContainerColor = isLight ? Colors.green.shade50 : Colors.green.shade900.withValues(alpha: 0.4);
+    final Color successColor =
+        isLight ? Colors.green.shade700 : Colors.greenAccent.shade400;
+    final Color successContainerColor = isLight
+        ? Colors.green.shade50
+        : Colors.green.shade900.withValues(alpha: 0.4);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
