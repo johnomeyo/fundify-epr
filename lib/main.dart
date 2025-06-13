@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:fundora/auth/auth_gate.dart';
 import 'package:fundora/pages/chat/messages_page.dart';
@@ -9,10 +10,28 @@ import 'firebase_options.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
+  // if (Platform.isIOS || Platform.isMacOS) {
+  //   StoreConfig(
+  //     store: Store.appStore,
+  //     apiKey: appleApiKey,
+  //   );
+  // } else if (Platform.isAndroid) {
+  //   // Run the app passing --dart-define=AMAZON=true
+  //   const useAmazon = bool.fromEnvironment("amazon");
+  //   StoreConfig(
+  //     store: useAmazon ? Store.amazon : Store.playStore,
+  //     apiKey: useAmazon ? amazonApiKey : googleApiKey,
+  //   );
+  // }
+
+  // // Configure the RevenueCat SDK
+  // await _configureSDK();
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -20,6 +39,8 @@ void main() async {
     runApp(MyApp());
   });
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
