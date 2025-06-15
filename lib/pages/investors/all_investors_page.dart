@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fundora/flow_loader_widget.dart';
 import 'package:fundora/pages/homepage/investor_card.dart';
 
 class AllInvestorsPage extends StatelessWidget {
@@ -21,7 +22,11 @@ class AllInvestorsPage extends StatelessWidget {
           future: fetchInvestors(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator.adaptive());
+              // return const Center(child: CircularProgressIndicator.adaptive());
+              return FlowLoader(
+                size: 120,
+                backgroundColor: Colors.transparent,
+              );
             }
 
             if (!snapshot.hasData || snapshot.data!.isEmpty) {

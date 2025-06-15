@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fundora/auth/sign_in_page.dart';
 import 'package:fundora/auth/profle_setup_page.dart';
+import 'package:fundora/flow_loader_widget.dart';
 import 'package:fundora/main.dart';
 
 class AuthGate extends StatelessWidget {
@@ -41,7 +42,11 @@ class AuthGate extends StatelessWidget {
             builder: (context, investorSnapshot) {
               if (investorSnapshot.connectionState == ConnectionState.waiting) {
                 return const Scaffold(
-                  body: Center(child: CircularProgressIndicator()),
+                  // body: Center(child: CircularProgressIndicator()),
+                  body: FlowLoader(
+                    size: 120,
+                    backgroundColor: Colors.transparent,
+                  ),
                 );
               }
 

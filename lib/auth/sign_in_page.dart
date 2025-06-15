@@ -80,8 +80,8 @@ class _SignInPageState extends State<SignInPage> {
               SizedBox(
                 width: double.infinity,
                 child: _isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
+                    ? Center(
+                        child: CircularProgressIndicator.adaptive(),
                       )
                     : FilledButton(
                         onPressed: _handleGoogleSignIn,
